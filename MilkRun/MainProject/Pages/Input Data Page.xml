@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-11-27 13:12:30">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Button">
+		<Location top="84" left="12" bottom="150" right="102" />
+		<TabOrder>2</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Read Input Excel"</Title>
+		<Font GUID="1BB7DC30-518F-445D-9463-D62CA6EE3806" Name="SubMenu" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>ReadExcelData</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+			<Action Type="LinkedPage">
+				<Page PageGUID="55FEB885-0F1D-40A0-9889-1FAC38DB6716" Name="SKU" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>ReadExcelData</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

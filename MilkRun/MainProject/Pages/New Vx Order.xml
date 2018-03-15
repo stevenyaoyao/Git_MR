@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-25 03:44:32">
+	<PageEditSize Type="Specified">
+		<Size Width="1200" Height="390" />
+	</PageEditSize>
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<Title>"Add New Vx Order"</Title>
+	<IsDialogPage>true</IsDialogPage>
+	<DockAlways>true</DockAlways>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="54" left="24" bottom="84" right="168" />
+		<StaticText>Vx Order City</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="24" bottom="108" right="138" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderCity</Identifier>
+			<NumberFormat Width="15" Decimals="0" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="192" bottom="84" right="366" />
+		<StaticText>Status</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="189" bottom="108" right="387" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderStatus</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="438" bottom="84" right="570" />
+		<StaticText>Order Id</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="438" bottom="108" right="552" />
+		<TabOrder>4</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderId</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="606" bottom="84" right="762" />
+		<StaticText>Order Date</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="603" bottom="108" right="717" />
+		<TabOrder>8</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderDate</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="252" left="768" bottom="300" right="936" />
+		<TabOrder>6</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>AddNewVxOrder</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="252" left="1002" bottom="300" right="1170" />
+		<TabOrder>7</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Close"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="ClosePage" />
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="768" bottom="90" right="900" />
+		<StaticText>CustomerId</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="936" bottom="108" right="1134" />
+		<TabOrder>12</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderCustomerName</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="936" bottom="84" right="1122" />
+		<StaticText>Customer Name</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="768" bottom="108" right="882" />
+		<TabOrder>13</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderCustomer</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="138" left="189" bottom="162" right="267" />
+		<StaticText>SKU</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="162" left="189" bottom="192" right="387" />
+		<TabOrder>5</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderSKU</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="138" left="438" bottom="162" right="546" />
+		<StaticText>Quantity</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="162" left="438" bottom="192" right="552" />
+		<TabOrder>9</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderQuantity</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="120" left="606" bottom="162" right="756" />
+		<StaticText>Delivery Window
+End Date</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="162" left="603" bottom="192" right="717" />
+		<TabOrder>11</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderDeliveryWindowEnd</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="162" left="768" bottom="192" right="882" />
+		<TabOrder>10</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewVxOrderDCDivision</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="138" left="768" bottom="162" right="888" />
+		<StaticText>DC Division</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_NewVxOrderCity</Symbol>
+			<Symbol>P_NewVxOrderStatus</Symbol>
+			<Symbol>P_NewVxOrderId</Symbol>
+			<Symbol>P_NewVxOrderDate</Symbol>
+			<Symbol>P_NewVxOrderCustomerName</Symbol>
+			<Symbol>P_NewVxOrderCustomer</Symbol>
+			<Symbol>P_NewVxOrderSKU</Symbol>
+			<Symbol>P_NewVxOrderQuantity</Symbol>
+			<Symbol>P_NewVxOrderDeliveryWindowEnd</Symbol>
+			<Symbol>P_NewVxOrderDCDivision</Symbol>
+			<Symbol>AddNewVxOrder</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

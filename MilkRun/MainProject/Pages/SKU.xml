@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-03 14:26:12">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="144" left="108" bottom="168" right="150" />
+		<StaticText>SKU</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="168" left="108" bottom="474" right="1128" />
+		<TabOrder>2</TabOrder>
+		<ObjectUUID>5BE4DB34-7B66-4BA4-BAF1-1CC8EE28F1AD</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawSKUDescription( rawsku )</Identifier>
+				<Title ID="4120">"Description"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawSKUCategory( rawsku )</Identifier>
+				<Title ID="4120">"Category"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawIsPV( rawsku )</Identifier>
+				<Title ID="4120">"IsIPV"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"Yes"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawMaxOnRoadTime( rawsku )</Identifier>
+				<Title ID="4120">"MaxOnRoadTime (Hours)"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawDCHandlingCapacityConsumptionRate( rawsku )</Identifier>
+				<Title ID="4120">"DCHandingCapacityConsumptionRate"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawsku</Index>
+				<Header_Title ID="6530">"SKU"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="486" left="108" bottom="504" right="258" />
+		<StaticText>SKU Unit Conversion</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="510" left="108" bottom="816" right="474" />
+		<TabOrder>3</TabOrder>
+		<ObjectUUID>0A1CDAF0-541F-44B5-8049-73903F19B2F1</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawConversionRateToShipper( rawsku, rawunit )</Identifier>
+				<Title ID="4120">"Conversion Rate To Shipper"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawsku</Index>
+				<Header_Title ID="6530">"SKU"</Header_Title>
+			</Explicit_Index>
+			<Explicit_Index>
+				<Index ID="6510">rawunit</Index>
+				<Header_Title ID="6530">"Unit"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="486" left="696" bottom="516" right="972" />
+		<StaticText>SKU Volume &amp; Weight</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="510" left="696" bottom="816" right="1128" />
+		<TabOrder>4</TabOrder>
+		<ObjectUUID>41664962-ABF4-453D-A14A-0B2FB85CBA0D</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawWeight( rawsku, rawtm, rawunit )</Identifier>
+				<Title ID="4120">"Weight"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawVolume( rawsku, rawtm, rawunit )</Identifier>
+				<Title ID="4120">"Volume"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawsku</Index>
+				<Header_Title ID="6530">"SKU"</Header_Title>
+			</Explicit_Index>
+			<Explicit_Index>
+				<Index ID="6510">rawunit</Index>
+				<Header_Title ID="6530">"Unit"</Header_Title>
+			</Explicit_Index>
+			<Explicit_Index>
+				<Index ID="6510">rawtm</Index>
+				<Header_Title ID="6530">"Transportation Mode"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_RawSKUCategory</Symbol>
+			<Symbol>P_RawIsPV</Symbol>
+			<Symbol>P_RawMaxOnRoadTime</Symbol>
+			<Symbol>P_RawDCHandlingCapacityConsumptionRate</Symbol>
+			<Symbol>P_RawSKUDescription</Symbol>
+			<Symbol>P_RawConversionRateToShipper</Symbol>
+			<Symbol>P_RawWeight</Symbol>
+			<Symbol>P_RawVolume</Symbol>
+			<Symbol>rawtm</Symbol>
+			<Symbol>rawsku</Symbol>
+			<Symbol>rawunit</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

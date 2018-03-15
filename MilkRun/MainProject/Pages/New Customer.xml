@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-17 06:45:35">
+	<PageEditSize Type="Specified">
+		<Size Width="1200" Height="390" />
+	</PageEditSize>
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<Title>"Add New Customer"</Title>
+	<IsDialogPage>true</IsDialogPage>
+	<DockAlways>true</DockAlways>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="54" left="60" bottom="84" right="144" />
+		<StaticText>Customer</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="60" bottom="108" right="396" />
+		<TabOrder>4</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewCustomerString</Identifier>
+			<NumberFormat Width="15" Decimals="0" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="426" bottom="84" right="504" />
+		<StaticText>Latitude</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="427" bottom="108" right="493" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewCustomerLatitude</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="524" bottom="84" right="608" />
+		<StaticText>Longitude</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="524" bottom="108" right="590" />
+		<TabOrder>5</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewCustomerLongitude</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="621" bottom="84" right="705" />
+		<StaticText>City</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="621" bottom="108" right="765" />
+		<TabOrder>8</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewCustomerCity</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="796" bottom="84" right="912" />
+		<StaticText>Description</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="796" bottom="108" right="1132" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewCustomerDescription</Identifier>
+			<NumberFormat Width="15" Decimals="0" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="192" left="744" bottom="240" right="912" />
+		<TabOrder>6</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>AddNewCustomer</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="192" left="964" bottom="240" right="1132" />
+		<TabOrder>7</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Close"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="ClosePage" />
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_NewCustomerString</Symbol>
+			<Symbol>P_NewCustomerLatitude</Symbol>
+			<Symbol>P_NewCustomerLongitude</Symbol>
+			<Symbol>P_NewCustomerCity</Symbol>
+			<Symbol>P_NewCustomerDescription</Symbol>
+			<Symbol>AddNewCustomer</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

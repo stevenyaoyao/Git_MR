@@ -1,0 +1,466 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2018-02-08 13:59:19">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="144" left="12" bottom="168" right="222" />
+		<StaticText>Milk Run Result</StaticText>
+		<Font GUID="0E1A2C15-4EB6-4D00-B415-CB73F116C4CF" Name="Big Title" />
+		<TextColor RGB="#00ffff" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="204" left="12" bottom="480" right="1086" />
+		<TabOrder>4</TabOrder>
+		<ObjectUUID>3DB715FD-0E80-4E93-B8E0-CD0720766981</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultTruck( rei )</Identifier>
+				<Title ID="4120">"Truck"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultTruckSequence( rei )</Identifier>
+				<Title ID="4120">"Visiting Sequence"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultFromLocation( rei )</Identifier>
+				<Title ID="4120">"From"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultFromCity( rei )</Identifier>
+				<Title ID="4120">"City"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultFromRegion( rei )</Identifier>
+				<Title ID="4120">"Province"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultDepartureDate( rei )</Identifier>
+				<Title ID="4120">"Departure Date"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultDepartureTime( rei )</Identifier>
+				<Title ID="4120">"Departure Time"</Title>
+				<Format>
+					<Show_default_values ID="4320">"Yes"</Show_default_values>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultToLocation( rei )</Identifier>
+				<Title ID="4120">"To"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultToCity( rei )</Identifier>
+				<Title ID="4120">"City"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultToRegion( rei )</Identifier>
+				<Title ID="4120">"Province"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultArrivalDate( rei )</Identifier>
+				<Title ID="4120">"Arrival Date"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultArrivalTime( rei )</Identifier>
+				<Title ID="4120">"Arrival Time"</Title>
+				<Format>
+					<Show_default_values ID="4320">"Yes"</Show_default_values>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rei</Index>
+				<Header_Title ID="6530">"Record"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="522" left="12" bottom="798" right="1086" />
+		<TabOrder>2</TabOrder>
+		<ObjectUUID>F3C9BD6F-ADAB-46D8-9E7D-92B1EFE8D113</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderTruck( rei )</Identifier>
+				<Title ID="4120">"Truck"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultDCDepartureDate( rei )</Identifier>
+				<Title ID="4120">"DC Departure Date"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderTruckSequence( rei )</Identifier>
+				<Title ID="4120">"Delivery Order Sequence"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderCustomer( rei )</Identifier>
+				<Title ID="4120">"CustomerId"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderCustomerName( rei )</Identifier>
+				<Title ID="4120">"Customer Name"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderCity( rei )</Identifier>
+				<Title ID="4120">"City"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderRegion( rei )</Identifier>
+				<Title ID="4120">"Province"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrder( rei )</Identifier>
+				<Title ID="4120">"Order"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderSKUCategory( rei )</Identifier>
+				<Title ID="4120">"SKU Category"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderSKU( rei )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderSKUDescription( rei )</Identifier>
+				<Title ID="4120">"SKU Description"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderShipper( rei )</Identifier>
+				<Title ID="4120">"Shipper"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultOrderPcs( rei )</Identifier>
+				<Title ID="4120">"Pcs"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rei</Index>
+				<Header_Title ID="6530">"Record"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="180" left="12" bottom="204" right="162" />
+		<StaticText>Truck Itinerary</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="498" left="12" bottom="522" right="162" />
+		<StaticText>Truck Orders</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="498" left="1092" bottom="522" right="1242" />
+		<StaticText>UnDelivered Order</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="522" left="1092" bottom="798" right="1452" />
+		<TabOrder>3</TabOrder>
+		<ObjectUUID>8CA99AA6-1018-46AB-8D94-34E1E0375344</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultUnDeliverOrderShipper( rawindex )</Identifier>
+				<Title ID="4120">"UnDelivered Shipper"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultUnDeliverOrderPcs( rawindex )</Identifier>
+				<Title ID="4120">"UnDelivered Pcs"</Title>
+				<Format>
+					<Alignment ID="4330">"Center"</Alignment>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultUnDeliverOrderSKU( rawindex )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_MRResultUnDeliverOrderSKUDescription( rawindex )</Identifier>
+				<Title ID="4120">"SKU Description"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawindex</Index>
+				<Header_Title ID="6530">"Order"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Never"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="180" left="1092" bottom="204" right="1242" />
+		<StaticText>Cost Summary</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="204" left="1092" bottom="438" right="1452" />
+		<TabOrder>5</TabOrder>
+		<ObjectUUID>A7A904AB-7E23-4DFC-93EB-961C806D2630</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_TripCostMR( UsedtkMr )</Identifier>
+				<Title ID="4120">"Trip Cost"</Title>
+				<Format>
+					<Decimal_Places ID="4312">1</Decimal_Places>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_AdditionalDropOffCostMR( UsedtkMr )</Identifier>
+				<Title ID="4120">"Additional Dropoff Cost"</Title>
+				<Format>
+					<Decimal_Places ID="4312">1</Decimal_Places>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_SumCostMR( UsedtkMr )</Identifier>
+				<Title ID="4120">"Sum Cost"</Title>
+				<Format>
+					<Decimal_Places ID="4312">1</Decimal_Places>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">UsedtkMr</Index>
+				<Header_Title ID="6530">"Truck"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="450" left="1092" bottom="474" right="1170" />
+		<StaticText>Total Cost</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="450" left="1164" bottom="480" right="1248" />
+		<TabOrder>6</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_TotalCostMR</Identifier>
+			<NumberFormat Width="9" Decimals="1" Scientific="IfTooSmallorLarge" ThousandSeparator="true" Alignment="Center" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_MRResultTruck</Symbol>
+			<Symbol>P_MRResultTruckSequence</Symbol>
+			<Symbol>P_MRResultFromLocation</Symbol>
+			<Symbol>P_MRResultFromCity</Symbol>
+			<Symbol>P_MRResultFromRegion</Symbol>
+			<Symbol>P_MRResultToLocation</Symbol>
+			<Symbol>P_MRResultToCity</Symbol>
+			<Symbol>P_MRResultToRegion</Symbol>
+			<Symbol>P_MRResultDCDepartureDate</Symbol>
+			<Symbol>P_MRResultDepartureDate</Symbol>
+			<Symbol>P_MRResultDepartureTime</Symbol>
+			<Symbol>P_MRResultArrivalDate</Symbol>
+			<Symbol>P_MRResultArrivalTime</Symbol>
+			<Symbol>P_MRResultOrderTruck</Symbol>
+			<Symbol>P_MRResultOrderTruckSequence</Symbol>
+			<Symbol>P_MRResultOrderCustomer</Symbol>
+			<Symbol>P_MRResultOrderCustomerName</Symbol>
+			<Symbol>P_MRResultOrderCity</Symbol>
+			<Symbol>P_MRResultOrderRegion</Symbol>
+			<Symbol>P_MRResultOrder</Symbol>
+			<Symbol>P_MRResultOrderSKUCategory</Symbol>
+			<Symbol>P_MRResultOrderSKU</Symbol>
+			<Symbol>P_MRResultOrderSKUDescription</Symbol>
+			<Symbol>P_MRResultOrderShipper</Symbol>
+			<Symbol>P_MRResultOrderPcs</Symbol>
+			<Symbol>P_MRResultUnDeliverOrderShipper</Symbol>
+			<Symbol>P_MRResultUnDeliverOrderPcs</Symbol>
+			<Symbol>P_MRResultUnDeliverOrderSKU</Symbol>
+			<Symbol>P_MRResultUnDeliverOrderSKUDescription</Symbol>
+			<Symbol>P_TripCostMR</Symbol>
+			<Symbol>P_AdditionalDropOffCostMR</Symbol>
+			<Symbol>P_SumCostMR</Symbol>
+			<Symbol>P_TotalCostMR</Symbol>
+			<Symbol>rawindex</Symbol>
+			<Symbol>rei</Symbol>
+			<Symbol>UsedtkMr</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

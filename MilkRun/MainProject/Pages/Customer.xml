@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2018-02-06 13:31:48">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="204" left="108" bottom="228" right="276" />
+		<StaticText>Customer Information</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="228" left="108" bottom="480" right="1404" />
+		<TabOrder>3</TabOrder>
+		<ObjectUUID>26DBC34F-15C0-4FA3-BB99-4BDE0EE78E07</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerLatitude( rawcust )</Identifier>
+				<Title ID="4120">"Latitude"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerLongitude( rawcust )</Identifier>
+				<Title ID="4120">"Longitude"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerCity( rawcust )</Identifier>
+				<Title ID="4120">"City"</Title>
+				<Format>
+					<Show_default_values ID="4320">"Yes"</Show_default_values>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerDescription( rawcust )</Identifier>
+				<Title ID="4120">"Description"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawcust</Index>
+				<Header_Title ID="6530">"CustomerId"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="492" left="108" bottom="522" right="306" />
+		<StaticText>Customer Work Time</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="516" left="108" bottom="810" right="576" />
+		<TabOrder>2</TabOrder>
+		<ObjectUUID>A4BEF428-DFFE-4D45-9AA1-805CF2F2F50B</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawDayofTimeWindowSN( rawsn )</Identifier>
+				<Title ID="4120">"Day of Week (1 is Mon, 2 is Tue,...)"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawStartTimeofTimeWindowSN( rawsn )</Identifier>
+				<Title ID="4120">"StartofTimeWindow"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawEndTimeofTimeWindowSN( rawsn )</Identifier>
+				<Title ID="4120">"EndofTimeWindow"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawsn</Index>
+				<Header_Title ID="6530">"SN"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="492" left="648" bottom="516" right="816" />
+		<StaticText>City Region</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="516" left="648" bottom="810" right="960" />
+		<TabOrder>5</TabOrder>
+		<ObjectUUID>094F108E-0DE7-4DC1-97E1-64E6A73E6932</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCityRegion( rawct )</Identifier>
+				<Title ID="4120">"Region"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawct</Index>
+				<Header_Title ID="6530">"City"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="492" left="1032" bottom="516" right="1200" />
+		<StaticText>Distance</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="516" left="1032" bottom="810" right="1404" />
+		<TabOrder>4</TabOrder>
+		<ObjectUUID>2E34E95A-3E2B-4744-A561-61C116336312</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawDistance( rawlc1, rawlc2 )</Identifier>
+				<Title ID="4120">"Distance (km)"</Title>
+				<Format>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawlc1</Index>
+				<Header_Title ID="6530">"Location 1"</Header_Title>
+			</Explicit_Index>
+			<Explicit_Index>
+				<Index ID="6510">rawlc2</Index>
+				<Header_Title ID="6530">"Location 2"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Never"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="144" left="108" bottom="192" right="276" />
+		<TabOrder>6</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add New Customer"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="LinkedPage">
+				<Page PageGUID="198B1F15-E1EA-43F3-B99B-12A7BF25E3A9" Name="New Customer" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_RawCityRegion</Symbol>
+			<Symbol>P_RawCustomerLatitude</Symbol>
+			<Symbol>P_RawCustomerLongitude</Symbol>
+			<Symbol>P_RawCustomerCity</Symbol>
+			<Symbol>P_RawCustomerDescription</Symbol>
+			<Symbol>P_RawDayofTimeWindowSN</Symbol>
+			<Symbol>P_RawStartTimeofTimeWindowSN</Symbol>
+			<Symbol>P_RawEndTimeofTimeWindowSN</Symbol>
+			<Symbol>P_RawDistance</Symbol>
+			<Symbol>rawct</Symbol>
+			<Symbol>rawcust</Symbol>
+			<Symbol>rawlc1</Symbol>
+			<Symbol>rawlc2</Symbol>
+			<Symbol>rawsn</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

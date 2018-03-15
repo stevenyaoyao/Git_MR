@@ -1,0 +1,39 @@
+﻿Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression 
+(( P_RawLatestDeliveryDateInSalesOrderVx(rawindex) - P_RawPlanningHorizonStartDate ) * 24)[day]
+, and with the expression 
+(24)[]
+ are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression 
+(( P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) - P_RawPlanningHorizonStartDate ) * 24)[day]
+, and with the expression 
+(24)[]
+ are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression 
+(( P_RawLatestDeliveryDateInSalesOrderVx(rawindex) - P_RawPlanningHorizonStartDate ) * 24)[day]
+, and with the expression 
+(24)[]
+ are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression 
+(( P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) - P_RawPlanningHorizonStartDate ) * 24)[day]
+, and with the expression 
+(24)[]
+ are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression (P_RawLatestDeliveryDateInSalesOrderVx(rawindex) - P_RawLocalDeliveryStartDate)[day], and with the expression (1)[] are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The unit [] of parameter "P_EarliestArrivalTime" is not commensurate with the unit [day] of its "assigned value".
+Warning: The units associated with the expression 
+(P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) - P_RawLocalDeliveryStartDate)[day]
+, and with the expression 
+(1)[]
+ are not commensurate.
+Warning: The unit [] of parameter "P_LatestDepartureTime" is not commensurate with the unit [day] of its "assigned value".
+There is 80.195 Mb in use.

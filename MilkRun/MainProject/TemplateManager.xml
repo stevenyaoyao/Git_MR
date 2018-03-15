@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<TemplateManager>
+	<Template Name="Template" PageGUID="123FA8F7-1B5C-4DD8-8ADD-FA7583DD18E1">
+		<Template Name="Input Data Template" PageGUID="C542C253-C584-428F-A433-B9192C3D167F">
+			<Page Name="Input Data Page" PageGUID="584B3C59-2345-4543-84FC-F2474962C855" />
+			<Page Name="SKU" PageGUID="55FEB885-0F1D-40A0-9889-1FAC38DB6716" />
+			<Page Name="Truck" PageGUID="932F2F15-2103-4D85-AEFE-8BEA70229AC1" />
+			<Page Name="DC" PageGUID="90F5F55E-D265-4DBE-ACEF-1A10308C38DB" />
+			<Page Name="Customer" PageGUID="07CF03F7-5FAC-4B16-9460-BE48A32D34FA" />
+			<Page Name="Local Delivery" PageGUID="22C3718E-5FE0-4A4B-9766-D6A0D0DCDC6E" />
+			<Page Name="Order" PageGUID="A4A36459-39A3-4D1D-B359-EC1511C7C9C5" />
+		</Template>
+		<Template Name="Parameter Setting Template" PageGUID="515DA37A-877C-425F-AB6C-6E800D2B5F8F">
+			<Page Name="Parameter Setting Page" PageGUID="A7C847C9-352E-4DAB-998E-6AC635636F97" />
+			<Page Name="Parameter Setting - Milk Run" PageGUID="989BF2E7-0C98-4071-A18D-3E1DC9AA26E3" />
+			<Page Name="Parameter Setting - Local Delivery" PageGUID="B77B12F5-379E-4299-B25A-D8EFC86C52BC" />
+		</Template>
+		<Template Name="Derived Data Template" PageGUID="9EDA9A2E-59CA-457D-99B0-B094687EACA5">
+			<Page Name="Derived Data Page" PageGUID="4239152C-4AF6-4096-904A-820D98E46AEC" />
+		</Template>
+		<Template Name="Result Template" PageGUID="FD0BF4C8-15CE-4E79-A708-DBDFEDC52F6C">
+			<Page Name="Result Page" PageGUID="6253C620-2799-4C5F-B2F4-343773B5A8A8" />
+			<Page Name="Result - Milk Run" PageGUID="2E15D320-0D2D-4ABB-A085-6C283CC8B173" />
+			<Page Name="Result - Milk Run Itinerary Map" PageGUID="121FA5BF-977B-41CB-B3E4-E0641BF83414" />
+			<Page Name="Result - Local Delivery" PageGUID="23503691-906E-48A7-B775-8FB22DD88B6F" />
+			<Page Name="Result - Local Delivery Itinerary Map" PageGUID="EE91AA6B-DD7C-4E56-8B12-BFECAD08AD39" />
+		</Template>
+	</Template>
+	<Template Name="NewDataTemplate" PageGUID="C4A9FC6A-D91F-4B4A-A057-22E4410D470E">
+		<Page Name="New Customer" PageGUID="198B1F15-E1EA-43F3-B99B-12A7BF25E3A9" />
+		<Page Name="New Local Delivery" PageGUID="3D205BD5-D0A0-44AB-97CA-18BA84754979" />
+		<Page Name="New Truck Type" PageGUID="A34961CE-EC68-4575-8398-350D53642DEC" />
+		<Page Name="New Truck" PageGUID="D65A6BA0-158E-4466-971A-1CD1B83A4D24" />
+		<Page Name="New Vx Order" PageGUID="1718305B-84B3-4BD4-8E0D-C555E6A5B41B" />
+		<Page Name="New Rx Order" PageGUID="E0A1AD6F-3D28-459F-9212-4478B888BF63" />
+	</Template>
+	<Page Name="All Data Pages" PageGUID="7C776F97-C411-4D5A-98CC-6CBC253B8D56" />
+	<Page Name="[Data Page] P_RawConversionRateToShipper" PageGUID="D2B106E7-3E89-4224-A793-F671B844EE23" />
+	<Page Name="[Data Page] P_RawDistance" PageGUID="623F5D9C-553C-4719-9E6F-C6C641A7D392" />
+	<Page Name="[Data Page] P_RawWeight" PageGUID="32D82498-D3EE-48BB-84F8-75404C247758" />
+	<Page Name="[Data Page] P_RawVolume" PageGUID="E4602A65-3A08-4C74-A8B1-5972EE583D5F" />
+	<Page Name="[Data Page] P_RawTruckCity" PageGUID="06541CC7-F97B-4BF8-A13E-0C2FA15757D0" />
+	<Page Name="[Data Page] P_RawDCDivisionAvailableStock" PageGUID="D18F755F-D645-4561-B405-0562714A4078" />
+	<Page Name="[Data Page] P_RawDCAvailableStock" PageGUID="0003A65E-E096-4F84-BDE0-6B19A3D5615E" />
+	<Page Name="[Data Page] P_RawLDDayofWeek" PageGUID="943970C8-AD5D-49A2-9BC0-15B0229D7EE1" />
+	<Page Name="[Data Page] P_RawLDStartOfTimeWindow" PageGUID="CDEFE341-5D37-4340-B8A9-D64F2473934C" />
+	<Page Name="[Data Page] P_RawLDEndOfTimeWindow" PageGUID="0C2EC8DE-5DCA-49B0-80FD-5202354C0CCF" />
+	<Page Name="[Data Page] P_DisallowedTimeWindowStart" PageGUID="55D4604D-03FA-4C4E-A238-BCC8FE6E694F" />
+	<Page Name="[Data Page] P_IsSameCity" PageGUID="D907C6D5-AFBD-42E8-9326-6A039A005E7B" />
+	<Page Name="[Data Page] V_Travel" PageGUID="0B98D81F-F018-47BF-AEF0-03ED3BA2FFD4" />
+	<Page Name="[Data Page] V_DepartureTime" PageGUID="9088115C-B7FD-471B-8B1B-8DF804EE7D8B" />
+	<Page Name="[Data Page] V_IsBeforeDisallowedTimeWindow" PageGUID="89BC2AB8-0B3C-452F-B5A8-27D6DFE2593E" />
+	<Page Name="[Data Page] P_TransportationTime" PageGUID="D47C95A0-B519-49CA-A939-C406C3776241" />
+	<Page Name="[Data Page] P_TransportationCost" PageGUID="91B5A34A-B357-40D4-AC68-973BAE9981E5" />
+	<Page Name="[Data Page] P_SubV_Travel" PageGUID="F4BA25E8-FFC1-4391-9DBE-E7BE2F2A7207" />
+	<Page Name="[Data Page] P_SubV_DepartureTime" PageGUID="25D628CE-D6A9-4460-8D75-D783497C9704" />
+	<Page Name="[Data Page] P_SubV_UnMetOrderShipper" PageGUID="461E9034-CBE5-416C-812A-C70D04E89A55" />
+	<Page Name="[Data Page] P_SubV_UnMetOrderNonFullShipper" PageGUID="283DB3FF-173B-4FF2-B0B6-D8F5FB89655F" />
+	<Page Name="[Data Page] P_SubV_AssignOrder" PageGUID="DA93C494-F2C0-4977-B852-09DD2AD41CD0" />
+	<Page Name="[Data Page] P_SubV_AssignOrderShipper" PageGUID="636B8815-63CE-4F45-8191-F5A1DAD762A8" />
+	<Page Name="[Data Page] P_SubV_AssignOrderNonFullShipper" PageGUID="C141368E-3413-45C0-A8F8-91B2A5408F9D" />
+	<Page Name="[Data Page] P_Angle" PageGUID="390E97E2-8216-49E5-A8BE-393510035195" />
+	<Page Name="[Data Page] V_AssignOrder" PageGUID="D78217D4-0553-47D7-8735-1FE90F6BBC95" />
+	<Page Name="[Data Page] P_OrderCustomer" PageGUID="E293E3FB-C437-4D32-BFEC-683A8357AA2B" />
+</TemplateManager>

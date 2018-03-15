@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-16 12:44:14">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Picture">
+		<Location top="78" left="6" bottom="840" right="1458" />
+		<FileName LiteralFileName="true">"Pic\016-Sanofi.jpg"</FileName>
+		<Display>ActualSize</Display>
+	</PageObject>
+	<PageObject Type="Picture">
+		<Location top="6" left="6" bottom="72" right="90" />
+		<FileName LiteralFileName="true">"Pic\SANOFI_Logo_vertical-4colors.jpg"</FileName>
+		<Display>StretchOrShrink</Display>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="18" left="126" bottom="66" right="324" />
+		<TabOrder>1</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Input Data"</Title>
+		<ForegroundColor>
+			<Symbol>P_Color_InputData</Symbol>
+		</ForegroundColor>
+		<Font GUID="B9FB3A91-C2E5-44F5-991F-883BC5C99ED5" Name="Main Menu" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>Click_InputData</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+			<Action Type="LinkedPage">
+				<Page PageGUID="584B3C59-2345-4543-84FC-F2474962C855" Name="Input Data Page" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="18" left="504" bottom="66" right="702" />
+		<TabOrder>2</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Parameter Setting"</Title>
+		<ForegroundColor>
+			<Symbol>P_Color_ParameterSetting</Symbol>
+		</ForegroundColor>
+		<Font GUID="B9FB3A91-C2E5-44F5-991F-883BC5C99ED5" Name="Main Menu" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>Click_ParameterSetting</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+			<Action Type="LinkedPage">
+				<Page PageGUID="989BF2E7-0C98-4071-A18D-3E1DC9AA26E3" Name="Parameter Setting - Milk Run" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="18" left="882" bottom="66" right="1080" />
+		<TabOrder>3</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Derived Data"</Title>
+		<ForegroundColor>
+			<Symbol>P_Color_DerivedData</Symbol>
+		</ForegroundColor>
+		<Font GUID="B9FB3A91-C2E5-44F5-991F-883BC5C99ED5" Name="Main Menu" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>Click_DerivedData</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+			<Action Type="LinkedPage">
+				<Page PageGUID="4239152C-4AF6-4096-904A-820D98E46AEC" Name="Derived Data Page" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="18" left="1260" bottom="66" right="1458" />
+		<TabOrder>4</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Result"</Title>
+		<ForegroundColor>
+			<Symbol>P_Color_Result</Symbol>
+		</ForegroundColor>
+		<Font GUID="B9FB3A91-C2E5-44F5-991F-883BC5C99ED5" Name="Main Menu" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>Click_Result</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+			<Action Type="LinkedPage">
+				<Page PageGUID="2E15D320-0D2D-4ABB-A085-6C283CC8B173" Name="Result - Milk Run" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>Click_InputData</Symbol>
+			<Symbol>Click_ParameterSetting</Symbol>
+			<Symbol>Click_DerivedData</Symbol>
+			<Symbol>Click_Result</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

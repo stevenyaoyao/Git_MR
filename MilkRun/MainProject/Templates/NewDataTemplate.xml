@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-16 12:44:14" NeedsCompiledModel="false">
+	<PageEditSize Type="Specified">
+		<Size Width="1200" Height="390" />
+	</PageEditSize>
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Picture">
+		<Location top="6" left="6" bottom="384" right="1194" />
+		<FileName LiteralFileName="true">"Pic\016.jpg"</FileName>
+		<Display>ActualSize</Display>
+	</PageObject>
+	<UsedReferences>
+		<Model />
+	</UsedReferences>
+</Page>

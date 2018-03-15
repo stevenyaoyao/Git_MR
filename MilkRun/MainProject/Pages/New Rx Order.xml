@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-25 03:44:32">
+	<PageEditSize Type="Specified">
+		<Size Width="1200" Height="390" />
+	</PageEditSize>
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<Title>"Add New Rx Order"</Title>
+	<IsDialogPage>true</IsDialogPage>
+	<DockAlways>true</DockAlways>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="54" left="42" bottom="84" right="186" />
+		<StaticText>Rx Order DC</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="42" bottom="108" right="156" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderDC</Identifier>
+			<NumberFormat Width="15" Decimals="0" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="192" bottom="84" right="366" />
+		<StaticText>CustomerId</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="192" bottom="108" right="386" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderCustomer</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="444" bottom="84" right="534" />
+		<StaticText>SKU</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="444" bottom="108" right="558" />
+		<TabOrder>4</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderSKU</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="636" bottom="78" right="724" />
+		<StaticText>Status</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="634" bottom="108" right="748" />
+		<TabOrder>7</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderStatus</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="252" left="770" bottom="300" right="938" />
+		<TabOrder>5</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>AddNewRxOrder</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="252" left="1008" bottom="300" right="1176" />
+		<TabOrder>6</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Close"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="ClosePage" />
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="824" bottom="84" right="936" />
+		<StaticText>Quantity</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="824" bottom="108" right="938" />
+		<TabOrder>10</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderQuantity</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="144" left="192" bottom="174" right="378" />
+		<StaticText>Local Delivery Id</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="168" left="192" bottom="198" right="386" />
+		<TabOrder>11</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderLDId</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="144" left="444" bottom="168" right="642" />
+		<StaticText>Delivery Window Start</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="168" left="444" bottom="198" right="558" />
+		<TabOrder>9</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderDeliveryWindowStart</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="168" left="634" bottom="198" right="748" />
+		<TabOrder>8</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewRxOrderDeliveryWindowEnd</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="144" left="636" bottom="174" right="822" />
+		<StaticText>Delivery Window End</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_NewRxOrderDC</Symbol>
+			<Symbol>P_NewRxOrderCustomer</Symbol>
+			<Symbol>P_NewRxOrderSKU</Symbol>
+			<Symbol>P_NewRxOrderStatus</Symbol>
+			<Symbol>P_NewRxOrderQuantity</Symbol>
+			<Symbol>P_NewRxOrderLDId</Symbol>
+			<Symbol>P_NewRxOrderDeliveryWindowStart</Symbol>
+			<Symbol>P_NewRxOrderDeliveryWindowEnd</Symbol>
+			<Symbol>AddNewRxOrder</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

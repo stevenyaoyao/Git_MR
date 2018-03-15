@@ -1,0 +1,478 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2018-02-11 05:30:00">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="234" left="30" bottom="258" right="402" />
+		<StaticText>Select Planning Date (Truck Departure at Planning Date + 3)</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Selection Object">
+		<SelectionType>DropDownList</SelectionType>
+		<Location top="258" left="30" bottom="288" right="156" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<TextShown>ElementName</TextShown>
+		<Border Style="None" />
+		<BackgroundColor RGB="#ffffff" />
+		<ExplicitIdentifier>
+			<Identifier>P_RawPlanningAtDate</Identifier>
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="360" left="30" bottom="384" right="306" />
+		<StaticText>Delivery Window Start Date:   Order Date +</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="348" left="324" bottom="384" right="366" />
+		<TabOrder>4</TabOrder>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#8080c0" />
+		<TextColor RGB="#80ff80" />
+		<SelectionColor RGB="#80ff80" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_RawOrderDateGapDeliveryStartDate</Identifier>
+			<NumberFormat Width="5" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Center" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="402" left="30" bottom="426" right="306" />
+		<StaticText>Delivery Window End Date:    Order Date +</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="396" left="324" bottom="432" right="366" />
+		<TabOrder>6</TabOrder>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#8080c0" />
+		<TextColor RGB="#80ff80" />
+		<SelectionColor RGB="#80ff80" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_RawOrderDateGapDeliveryEndDate</Identifier>
+			<NumberFormat Width="5" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Center" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="456" left="30" bottom="480" right="342" />
+		<StaticText>Select Account Closing Dates First Day (if any)</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Selection Object">
+		<SelectionType>DropDownList</SelectionType>
+		<Location top="480" left="30" bottom="510" right="174" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<TextShown>ElementName</TextShown>
+		<Border Style="None" />
+		<BackgroundColor RGB="#ffffff" />
+		<ExplicitIdentifier>
+			<Identifier>P_RawAccountClosingFirstDate</Identifier>
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="552" left="30" bottom="600" right="198" />
+		<TabOrder>9</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Process Data"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>ProcessDataMilkRun</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="774" left="672" bottom="822" right="978" />
+		<TabOrder>7</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Run Milk Run Model"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>RunMilkRunModel</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Rectangle">
+		<Location top="162" left="18" bottom="822" right="408" />
+		<Shape>Open</Shape>
+		<FillColor RGB="#ffffff" />
+		<LineColor RGB="#c0c0c0" />
+		<LineWidth>3</LineWidth>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="180" left="30" bottom="210" right="102" />
+		<StaticText>Select DC</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Selection Object">
+		<SelectionType>DropDownList</SelectionType>
+		<Location top="180" left="114" bottom="204" right="198" />
+		<TabOrder>10</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<TextShown>ElementName</TextShown>
+		<Border Style="None" />
+		<BackgroundColor RGB="#ffffff" />
+		<ExplicitIdentifier>
+			<Identifier>P_RawSelectedDC</Identifier>
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="300" left="30" bottom="324" right="306" />
+		<StaticText>Truck Departure Time (0 - 23):</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="294" left="324" bottom="330" right="366" />
+		<TabOrder>5</TabOrder>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#8080c0" />
+		<TextColor RGB="#80ff80" />
+		<SelectionColor RGB="#80ff80" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_RawTruckStartHour</Identifier>
+			<NumberFormat Width="5" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Center" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="162" left="438" bottom="444" right="1440" />
+		<TabOrder>12</TabOrder>
+		<ObjectUUID>D01F7BEA-424C-4C98-B047-E1519023B142</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_IsVxOrderInScope( rawindex )</Identifier>
+				<Title ID="4120">"Selected DC?"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"Yes"</Show_Checkboxes>
+				</Format>
+				<Readonly ID="4122">1</Readonly>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_IsVxOrderInModel( rawindex )</Identifier>
+				<Title ID="4120">"In Model?"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"Yes"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawOrderIdInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Order Id"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawOrderDateInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Order Date"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawStatusInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Status"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"CustomerId"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerNameInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Customer Name"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCityInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"City"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRegionInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Province"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawSKUInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawQuantityInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Quantity"</Title>
+				<Format>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawEarliestDeliveryDateInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window Start"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawLatestDeliveryDateInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window End"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawindex</Index>
+				<Header_Title ID="6530">"Index"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="138" left="438" bottom="168" right="492" />
+		<StaticText>Vx Order</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="456" left="438" bottom="486" right="534" />
+		<StaticText>Rx Order</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="480" left="438" bottom="762" right="1440" />
+		<TabOrder>11</TabOrder>
+		<ObjectUUID>EC273CAC-47A8-4329-A03B-112A1E561AC9</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_IsRxOrderInScope( rawindex )</Identifier>
+				<Title ID="4120">"Selected DC?"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"Yes"</Show_Checkboxes>
+				</Format>
+				<Readonly ID="4122">1</Readonly>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_IsRxOrderInModel( rawindex )</Identifier>
+				<Title ID="4120">"In Model?"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"Yes"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxStatusInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Status"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxCustomerInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"CustomerId"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxCityInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"City"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxRegionInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Province"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxLocalDeliveryIdInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Local Delivery Id"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxSKUInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxQuantityInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Quantity"</Title>
+				<Format>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxPreferredDeliveryStartDateInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window Start"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxPreferredDeliveryEndDateInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window End"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawindex</Index>
+				<Header_Title ID="6530">"Order Id"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="132" left="18" bottom="156" right="228" />
+		<StaticText>Milk Run Parameters</StaticText>
+		<Font GUID="0E1A2C15-4EB6-4D00-B415-CB73F116C4CF" Name="Big Title" />
+		<TextColor RGB="#00ffff" />
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="774" left="1032" bottom="822" right="1338" />
+		<TabOrder>8</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Check Status"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>guipro::OpenRequestManagement</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="768" left="438" bottom="798" right="630" />
+		<StaticText>Set Running Time Limit (Min)</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="792" left="438" bottom="822" right="492" />
+		<TabOrder>13</TabOrder>
+		<Font GUID="1BB7DC30-518F-445D-9463-D62CA6EE3806" Name="SubMenu" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_UI_SolvingTimeLimit</Identifier>
+			<NumberFormat Width="5" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>S_RawDC</Symbol>
+			<Symbol>P_RawCityInSalesOrderVx</Symbol>
+			<Symbol>P_RawRegionInSalesOrderVx</Symbol>
+			<Symbol>P_RawStatusInSalesOrderVx</Symbol>
+			<Symbol>P_RawOrderIdInSalesOrderVx</Symbol>
+			<Symbol>P_RawOrderDateInSalesOrderVx</Symbol>
+			<Symbol>P_RawCustomerInSalesOrderVx</Symbol>
+			<Symbol>P_RawCustomerNameInSalesOrderVx</Symbol>
+			<Symbol>P_RawSKUInSalesOrderVx</Symbol>
+			<Symbol>P_RawQuantityInSalesOrderVx</Symbol>
+			<Symbol>P_RawLatestDeliveryDateInSalesOrderVx</Symbol>
+			<Symbol>P_RawRxCustomerInSalesOrder</Symbol>
+			<Symbol>P_RawRxCityInSalesOrder</Symbol>
+			<Symbol>P_RawRxRegionInSalesOrder</Symbol>
+			<Symbol>P_RawRxSKUInSalesOrder</Symbol>
+			<Symbol>P_RawRxStatusInSalesOrder</Symbol>
+			<Symbol>P_RawRxQuantityInSalesOrder</Symbol>
+			<Symbol>P_RawRxLocalDeliveryIdInSalesOrder</Symbol>
+			<Symbol>P_RawRxPreferredDeliveryStartDateInSalesOrder</Symbol>
+			<Symbol>P_RawRxPreferredDeliveryEndDateInSalesOrder</Symbol>
+			<Symbol>Cal_Days</Symbol>
+			<Symbol>P_RawSelectedDC</Symbol>
+			<Symbol>P_RawPlanningAtDate</Symbol>
+			<Symbol>P_RawTruckStartHour</Symbol>
+			<Symbol>P_RawOrderDateGapDeliveryStartDate</Symbol>
+			<Symbol>P_RawOrderDateGapDeliveryEndDate</Symbol>
+			<Symbol>P_RawAccountClosingFirstDate</Symbol>
+			<Symbol>P_RawEarliestDeliveryDateInSalesOrderVx</Symbol>
+			<Symbol>P_IsVxOrderInScope</Symbol>
+			<Symbol>P_IsVxOrderInModel</Symbol>
+			<Symbol>P_IsRxOrderInScope</Symbol>
+			<Symbol>P_IsRxOrderInModel</Symbol>
+			<Symbol>P_UI_SolvingTimeLimit</Symbol>
+			<Symbol>ProcessDataMilkRun</Symbol>
+			<Symbol>RunMilkRunModel</Symbol>
+			<Symbol>guipro::OpenRequestManagement</Symbol>
+			<Symbol>rawindex</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

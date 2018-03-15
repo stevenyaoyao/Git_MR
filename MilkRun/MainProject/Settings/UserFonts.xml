@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<UserFonts>
+	<UserFont Name="Main Font" FaceName="Arial" PointSize="80" UUID="00000000-0000-0000-0000-000000000001" />
+	<UserFont Name="Main Menu" FaceName="Arial Narrow" PointSize="160" Bold="true" UUID="B9FB3A91-C2E5-44F5-991F-883BC5C99ED5" InternalID="1" />
+	<UserFont Name="SubMenu" FaceName="Arial Narrow" PointSize="120" Bold="true" UUID="1BB7DC30-518F-445D-9463-D62CA6EE3806" InternalID="2" />
+	<UserFont Name="Title" FaceName="Arial Narrow" PointSize="120" Bold="true" UUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" InternalID="3" />
+	<UserFont Name="Big Title" FaceName="Arial Narrow" PointSize="160" Bold="true" UUID="0E1A2C15-4EB6-4D00-B415-CB73F116C4CF" InternalID="4" />
+	<UserFont Name="popup title" FaceName="Arial" PointSize="120" Bold="true" UUID="CFB36135-799A-4903-AA82-CFA58F536293" InternalID="5" />
+</UserFonts>

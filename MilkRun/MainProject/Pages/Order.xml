@@ -1,0 +1,264 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2018-01-15 15:35:09">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="198" left="108" bottom="228" right="180" />
+		<StaticText>Vx Order</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="546" left="108" bottom="576" right="180" />
+		<StaticText>Rx Order</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#80ff80" />
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="570" left="108" bottom="810" right="858" />
+		<TabOrder>2</TabOrder>
+		<ObjectUUID>C45E7B46-C130-4CE4-B69D-11EFECFE56C9</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxDCInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"DC"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"No"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxCustomerInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"CustomerId"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"No"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxSKUInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxStatusInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Status"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxQuantityInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Quantity"</Title>
+				<Format>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxLocalDeliveryIdInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"LocalDeliveryId"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxPreferredDeliveryStartDateInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window Start"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxPreferredDeliveryEndDateInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window End"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawindex</Index>
+				<Header_Title ID="6530">"Order Id"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Pivot Table">
+		<Location top="222" left="108" bottom="462" right="1434" />
+		<TabOrder>3</TabOrder>
+		<ObjectUUID>A572587D-4A02-4C1C-8C07-7ED8DC6D08F8</ObjectUUID>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<Contents>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCityInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"City"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"No"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawStatusInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Status"</Title>
+				<Format>
+					<Show_Checkboxes ID="4315">"No"</Show_Checkboxes>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawOrderIdInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Order Id"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawOrderDateInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Order Date"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"CustomerId"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawCustomerNameInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Customer Name"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawSKUInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"SKU"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawQuantityInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Quantity"</Title>
+				<Format>
+					<Show_1000_seperator ID="4313">"Yes"</Show_1000_seperator>
+				</Format>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawLatestDeliveryDateInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"Delivery Window End"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawDCDivisionStringInSalesOrderVx( rawindex )</Identifier>
+				<Title ID="4120">"DC Division"</Title>
+			</Explicit_Identifier>
+		</Contents>
+		<Indices>
+			<Explicit_Index>
+				<Index ID="6510">rawindex</Index>
+				<Header_Title ID="6530">"Index"</Header_Title>
+			</Explicit_Index>
+			<Identifier_Index>
+				<Header_Title ID="6230">""</Header_Title>
+				<Hide_if_Single_Identifier ID="6270">"No"</Hide_if_Single_Identifier>
+			</Identifier_Index>
+		</Indices>
+		<General>
+			<Dense_Aggregation_restricts_to_Domain ID="1022">"Yes"</Dense_Aggregation_restricts_to_Domain>
+		</General>
+		<Row_Area>
+			<Background_Color ID="2010">RGB&lt;255,255,200&gt;</Background_Color>
+			<Text_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2020">"default selection"</Text_Color>
+			<Headers>
+				<Background_Color ExtraInfo="D4F48705-BFDF-4DF8-8E1F-D38EFF981024" ID="2120">"default selection"</Background_Color>
+				<Text_Color ID="2130">RGB&lt;255,255,255&gt;</Text_Color>
+				<Show_Sub_Headers ID="2150">"No"</Show_Sub_Headers>
+			</Headers>
+			<Grid_Focus_Indicator>
+				<Background_Color ID="2270">RGB&lt;0,0,168&gt;</Background_Color>
+				<Text_Color ID="2280">RGB&lt;255,255,200&gt;</Text_Color>
+			</Grid_Focus_Indicator>
+		</Row_Area>
+		<Column_Area>
+			<Auto_resize_Column_Widths ID="3006">"Upon all data changes"</Auto_resize_Column_Widths>
+			<Headers>
+				<Show_Sub_Headers ID="3150">"No"</Show_Sub_Headers>
+			</Headers>
+		</Column_Area>
+		<Grid_Area>
+			<Background_Color ID="5010">RGB&lt;255,255,255&gt;</Background_Color>
+			<Alternating_Background_Color ID="5011">RGB&lt;225,225,225&gt;</Alternating_Background_Color>
+			<Aggregators>
+				<Background_Color ID="5220">RGB&lt;255,128,128&gt;</Background_Color>
+			</Aggregators>
+			<Sub_Header_Row_or_Column>
+				<Background_Color ID="5320">RGB&lt;255,255,200&gt;</Background_Color>
+			</Sub_Header_Row_or_Column>
+		</Grid_Area>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="144" left="108" bottom="192" right="276" />
+		<TabOrder>4</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add New Vx Order"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="LinkedPage">
+				<Page PageGUID="1718305B-84B3-4BD4-8E0D-C555E6A5B41B" Name="New Vx Order" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="492" left="108" bottom="540" right="276" />
+		<TabOrder>5</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add New Rx Order"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="LinkedPage">
+				<Page PageGUID="E0A1AD6F-3D28-459F-9212-4478B888BF63" Name="New Rx Order" />
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_RawCityInSalesOrderVx</Symbol>
+			<Symbol>P_RawStatusInSalesOrderVx</Symbol>
+			<Symbol>P_RawOrderIdInSalesOrderVx</Symbol>
+			<Symbol>P_RawOrderDateInSalesOrderVx</Symbol>
+			<Symbol>P_RawCustomerInSalesOrderVx</Symbol>
+			<Symbol>P_RawCustomerNameInSalesOrderVx</Symbol>
+			<Symbol>P_RawSKUInSalesOrderVx</Symbol>
+			<Symbol>P_RawQuantityInSalesOrderVx</Symbol>
+			<Symbol>P_RawLatestDeliveryDateInSalesOrderVx</Symbol>
+			<Symbol>P_RawDCDivisionStringInSalesOrderVx</Symbol>
+			<Symbol>P_RawRxDCInSalesOrder</Symbol>
+			<Symbol>P_RawRxCustomerInSalesOrder</Symbol>
+			<Symbol>P_RawRxSKUInSalesOrder</Symbol>
+			<Symbol>P_RawRxStatusInSalesOrder</Symbol>
+			<Symbol>P_RawRxQuantityInSalesOrder</Symbol>
+			<Symbol>P_RawRxLocalDeliveryIdInSalesOrder</Symbol>
+			<Symbol>P_RawRxPreferredDeliveryStartDateInSalesOrder</Symbol>
+			<Symbol>P_RawRxPreferredDeliveryEndDateInSalesOrder</Symbol>
+			<Symbol>rawindex</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2018-01-14 03:54:44">
+	<PageEditSize Type="Inherited" />
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="144" left="12" bottom="168" right="264" />
+		<StaticText>Local Delivery Itinerary Map</StaticText>
+		<Font GUID="0E1A2C15-4EB6-4D00-B415-CB73F116C4CF" Name="Big Title" />
+		<TextColor RGB="#00ffff" />
+	</PageObject>
+	<PageObject Type="Network Object">
+		<Location top="180" left="90" bottom="816" right="1248" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<HorizontalScrollbar>true</HorizontalScrollbar>
+		<VerticalScrollbar>true</VerticalScrollbar>
+		<ScrollControl>NavigationButtons</ScrollControl>
+		<VisibleArea>
+			<Left>80.0485654624</Left>
+			<Right>127.018627604</Right>
+			<Top>45.385275329</Top>
+			<Bottom>19.8473569271</Bottom>
+		</VisibleArea>
+		<Background>
+			<Background_Image_Source ID="101">"From File"</Background_Image_Source>
+			<Image_File_Name ID="200" LiteralFileName="true">"Pic\background-Sanofi.png"</Image_File_Name>
+			<Left ID="210">65.3845</Left>
+			<Right ID="211">156.1</Right>
+			<Top ID="212">55.4828</Top>
+			<Bottom ID="213">11.3677</Bottom>
+		</Background>
+		<Node>
+			<Identifier>rawlc</Identifier>
+			<XCoordinate>P_RawLongitude( rawlc )</XCoordinate>
+			<YCoordinate>P_RawLatitude( rawlc )</YCoordinate>
+			<NumberFormat Width="6" Decimals="2" />
+			<MaximumSize>8</MaximumSize>
+			<TextPosition>Right</TextPosition>
+			<TextShowWhat>Nothing</TextShowWhat>
+		</Node>
+		<Arc>
+			<Identifier>P_UIDisplayingTruckRouteLD( UsedtkLd, rawlc1, rawlc2 )</Identifier>
+			<NumberFormat Width="6" Decimals="2" />
+			<MaximumSize>8</MaximumSize>
+			<TextPosition>Right</TextPosition>
+			<Color>P_TruckColorLD( UsedtkLd )</Color>
+			<ArrowPosition>100</ArrowPosition>
+			<ShapeExtraData>30</ShapeExtraData>
+			<Shape>Curved</Shape>
+			<FirstSegment>Horizontal</FirstSegment>
+			<ClickWhere>ArrowHead</ClickWhere>
+		</Arc>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="180" left="1290" bottom="258" right="1428" />
+		<TabOrder>4</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Display All Trucks"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>DisplayAllTrucksLD</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Selection Object">
+		<SelectionType>DropDownList</SelectionType>
+		<Location top="312" left="1290" bottom="336" right="1428" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<TextShown>ElementName</TextShown>
+		<Border Style="None" />
+		<BackgroundColor RGB="#ffffff" />
+		<ProcedureUponChange>DisplaySelectedTrucksLD</ProcedureUponChange>
+		<ExplicitIdentifier>
+			<Identifier>P_SelectedTruckLD</Identifier>
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="282" left="1290" bottom="306" right="1440" />
+		<StaticText>Select Truck to Display</StaticText>
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<TextColor RGB="#ffffff" />
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_RawLatitude</Symbol>
+			<Symbol>P_RawLongitude</Symbol>
+			<Symbol>S_UsedTruckLD</Symbol>
+			<Symbol>P_TruckColorLD</Symbol>
+			<Symbol>P_SelectedTruckLD</Symbol>
+			<Symbol>P_UIDisplayingTruckRouteLD</Symbol>
+			<Symbol>DisplayAllTrucksLD</Symbol>
+			<Symbol>DisplaySelectedTrucksLD</Symbol>
+			<Symbol>rawlc</Symbol>
+			<Symbol>rawlc1</Symbol>
+			<Symbol>rawlc2</Symbol>
+			<Symbol>UsedtkLd</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>

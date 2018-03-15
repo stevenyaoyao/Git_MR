@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<Page Version="4000" TimeStamp="2017-12-17 06:45:35">
+	<Location top="249" left="230" bottom="645" right="1436" />
+	<PageEditSize Type="Specified">
+		<Size Width="1200" Height="390" />
+	</PageEditSize>
+	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
+	<Title>"Add New Truck"</Title>
+	<IsDialogPage>true</IsDialogPage>
+	<DockAlways>true</DockAlways>
+	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
+	<Background Inherited="true" />
+	<PageObject Type="Text">
+		<Location top="54" left="66" bottom="84" right="210" />
+		<StaticText>Truck</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="66" bottom="108" right="180" />
+		<TabOrder>3</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewTruckString</Identifier>
+			<NumberFormat Width="15" Decimals="0" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="282" bottom="84" right="456" />
+		<StaticText>Truck Owner Id</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="284" bottom="108" right="398" />
+		<TabOrder>2</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewTruckOwnerId</Identifier>
+			<NumberFormat Width="7" Decimals="2" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Text">
+		<Location top="54" left="498" bottom="84" right="666" />
+		<StaticText>Truck Type</StaticText>
+		<Font GUID="CFB36135-799A-4903-AA82-CFA58F536293" Name="popup title" />
+		<TextColor RGB="#0000a0" />
+	</PageObject>
+	<PageObject Type="Scalar">
+		<Location top="78" left="502" bottom="108" right="616" />
+		<TabOrder>4</TabOrder>
+		<Font GUID="00000000-0000-0000-0000-000000000001" Name="Main Font" />
+		<Border Style="InShadow" Width="2" MarginTop="5" MarginRight="5" MarginBottom="5" MarginLeft="5" />
+		<BackgroundColor RGB="#ffffff" />
+		<Layout>Value</Layout>
+		<SeparatorSign>=</SeparatorSign>
+		<ExplicitIdentifier>
+			<Identifier>P_NewTruckTruckType</Identifier>
+			<NumberFormat Width="7" Decimals="0" Scientific="IfTooSmallorLarge" Alignment="Left" ShowDefaults="true" />
+		</ExplicitIdentifier>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="204" left="684" bottom="252" right="852" />
+		<TabOrder>5</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Add"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="Run">
+				<RunWhat>SpecificProcecure</RunWhat>
+				<Procedure>AddNewTruck</Procedure>
+				<AbortOnError>true</AbortOnError>
+			</Action>
+		</ActionSequence>
+	</PageObject>
+	<PageObject Type="Button">
+		<Location top="204" left="924" bottom="252" right="1092" />
+		<TabOrder>6</TabOrder>
+		<LeaveOnEnter>false</LeaveOnEnter>
+		<ButtonType>Text</ButtonType>
+		<Title>"Close"</Title>
+		<BackgroundColor RGB="#ffffff" />
+		<ForegroundColor RGB="#000000" />
+		<Font GUID="08BDEEC4-8524-498A-B53F-D5F6503C8BF0" Name="Title" />
+		<ActionSequence>
+			<Action Type="ClosePage" />
+		</ActionSequence>
+	</PageObject>
+	<UsedReferences>
+		<Model>
+			<Symbol>P_NewTruckString</Symbol>
+			<Symbol>P_NewTruckOwnerId</Symbol>
+			<Symbol>P_NewTruckTruckType</Symbol>
+			<Symbol>AddNewTruck</Symbol>
+		</Model>
+	</UsedReferences>
+</Page>
