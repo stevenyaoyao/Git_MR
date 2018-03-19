@@ -62,4 +62,5 @@
 	<Page Name="[Data Page] P_Angle" PageGUID="390E97E2-8216-49E5-A8BE-393510035195" />
 	<Page Name="[Data Page] V_AssignOrder" PageGUID="D78217D4-0553-47D7-8735-1FE90F6BBC95" />
 	<Page Name="[Data Page] P_OrderCustomer" PageGUID="E293E3FB-C437-4D32-BFEC-683A8357AA2B" />
+	<Page Name="[Data Page] P_MRResultUnDeliverOrderShipper" PageGUID="A50A9226-68A6-46C8-96CF-1F885916118E" />
 </TemplateManager>

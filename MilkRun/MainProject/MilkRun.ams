@@ -762,6 +762,7 @@ Model Main_MilkRun {
                 IndexDomain: rawindex;
                 Range: Cal_Days;
             }
+            Parameter P_RawHasVxOrder;
         }
         Procedure ProcessRawData {
             Body: {
@@ -836,7 +837,8 @@ Model Main_MilkRun {
                 	P_RawDCDivisionAvailableStock(P_RawDCDivisionInDCStock(rawindex), P_RawSKUInDCStock(rawindex)) := 
                 	P_RawDCDivisionAvailableStock(P_RawDCDivisionInDCStock(rawindex), P_RawSKUInDCStock(rawindex)) + P_RawAvailableStock(rawindex);
                 endfor;
-                P_RawDCAvailableStock(P_RawDCofDCDivision(rawdcd), rawsku) := P_RawDCDivisionAvailableStock(rawdcd, rawsku);
+                P_RawDCAvailableStock(P_RawDCofDCDivision(rawdcd), rawsku) := P_RawDCAvailableStock(P_RawDCofDCDivision(rawdcd), rawsku)
+                							      + P_RawDCDivisionAvailableStock(rawdcd, rawsku);
                 
                 P_RawTruckSpeed(rawtk) := P_RawTravelSpeed(P_RawTruckTruckType(rawtk));
                 
@@ -845,10 +847,20 @@ Model Main_MilkRun {
                 	P_RawDCDivisionInSalesOrderVx(rawindex) := rawdcd;
                 endfor;
                 
-                P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryStartDate;
-                for (rawindex | not (P_RawLatestDeliveryDateInSalesOrderVx(rawindex) in Cal_Days)) do
-                	P_RawLatestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryEndDate;
-                endfor;
+                ! If there is no Vx Order, this step is skipped
+                P_RawHasVxOrder := 0;
+                for (rawindex) do
+                	if (P_RawOrderDateInSalesOrderVx(rawindex)) then
+                		P_RawHasVxOrder := 1;
+                		break;
+                	endif;
+                endfor; 
+                if (P_RawHasVxOrder) then
+                	P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryStartDate;
+                	for (rawindex | not (P_RawLatestDeliveryDateInSalesOrderVx(rawindex) in Cal_Days)) do
+                		P_RawLatestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryEndDate;
+                	endfor;
+                endif;
                 
                 !P_RawCustomerInSalesOrderVx
             }
@@ -1537,8 +1549,14 @@ Model Main_MilkRun {
                 	S_SKU := S_SKU + P_RawRxSKUInSalesOrder(rawindex);
                 
                 	P_OrderSKU(P_UpdatedIndex) := P_RawRxSKUInSalesOrder(rawindex);
-                	P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
-                	P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                
+                	if (P_RawRxUnitIdInSalesOrder(rawindex) = P_PCS) then
+                		P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                		P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                	else
+                		P_OrderShipper(P_UpdatedIndex) := P_RawRxQuantityInSalesOrder(rawindex);
+                		P_OrderPcs(P_UpdatedIndex) := 0;
+                	endif;
                 
                 	P_EarliestArrivalTime(P_UpdatedIndex) := (P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawPlanningHorizonStartDate) * 24;
                 	if (P_EarliestArrivalTime(P_UpdatedIndex) < 0) then
@@ -1577,12 +1595,6 @@ Model Main_MilkRun {
                 !P_EarliestArrivalTime(od) := P_RawTruckStartHour;
                 !P_LatestDepartureTime(od) := P_RawTruckStartHour + P_RawPlannningDays * 24;
                 
-                P_BigMInDCServeCustomer1 := 0;
-                for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedDC) do
-                	S_Truck := S_Truck + rawtk;
-                	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
-                endfor;
-                
                 for ((SKU, rawtm, rawunit) | P_RawWeight(SKU, rawtm, rawunit) > 0) do
                 	S_TransportationMode := S_TransportationMode + rawtm;
                 
@@ -1605,6 +1617,13 @@ Model Main_MilkRun {
                 	if (rawunit = P_SHIPPER) then 
                 		P_VolumePerShipper(SKU, rawtm) := P_RawVolume(SKU, rawtm, rawunit);
                 	endif;
+                endfor;
+                
+                ! Truck tansporation mode need to be inside SKU allowed mode
+                P_BigMInDCServeCustomer1 := 0;
+                for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedDC and P_RawTMofTruckType(P_RawTruckTruckType(rawtk)) in S_TransportationMode) do
+                	S_Truck := S_Truck + rawtk;
+                	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
                 endfor;
                 
                 S_SN := S_RawSN;
@@ -2394,8 +2413,14 @@ Model Main_MilkRun {
                     	S_SKU := S_SKU + P_RawRxSKUInSalesOrder(rawindex);
                     
                     	P_OrderSKU(P_UpdatedIndex) := P_RawRxSKUInSalesOrder(rawindex);
-                    	P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
-                    	P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                    
+                    	if (P_RawRxUnitIdInSalesOrder(rawindex) = P_PCS) then
+                    		P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                    		P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                    	else
+                    		P_OrderShipper(P_UpdatedIndex) := P_RawRxQuantityInSalesOrder(rawindex);
+                    		P_OrderPcs(P_UpdatedIndex) := 0;
+                    	endif;
                     
                     	P_EarliestArrivalTime(P_UpdatedIndex) := (P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawPlanningHorizonStartDate) * 24;
                     	if (P_EarliestArrivalTime(P_UpdatedIndex) < 0) then
@@ -2434,12 +2459,6 @@ Model Main_MilkRun {
                     !P_EarliestArrivalTime(od) := P_RawTruckStartHour;
                     !P_LatestDepartureTime(od) := P_RawTruckStartHour + P_RawPlannningDays * 24;
                     
-                    P_BigMInDCServeCustomer1 := 0;
-                    for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedDC and P_IsUsedTruck(rawtk) = 0) do
-                    	S_Truck := S_Truck + rawtk;
-                    	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
-                    endfor;
-                    
                     for ((SKU, rawtm, rawunit) | P_RawWeight(SKU, rawtm, rawunit) > 0) do
                     	S_TransportationMode := S_TransportationMode + rawtm;
                     
@@ -2462,6 +2481,14 @@ Model Main_MilkRun {
                     	if (rawunit = P_SHIPPER) then 
                     		P_VolumePerShipper(SKU, rawtm) := P_RawVolume(SKU, rawtm, rawunit);
                     	endif;
+                    endfor;
+                    
+                    ! Truck tansporation mode need to be inside SKU allowed mode
+                    P_BigMInDCServeCustomer1 := 0;
+                    for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedDC and P_IsUsedTruck(rawtk) = 0
+                    	    and P_RawTMofTruckType(P_RawTruckTruckType(rawtk)) in S_TransportationMode) do
+                    	S_Truck := S_Truck + rawtk;
+                    	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
                     endfor;
                     
                     S_SN := S_RawSN;
@@ -2766,8 +2793,14 @@ Model Main_MilkRun {
                 	S_SKU := S_SKU + P_RawRxSKUInSalesOrder(rawindex);
                 
                 	P_OrderSKU(P_UpdatedIndex) := P_RawRxSKUInSalesOrder(rawindex);
-                	P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
-                	P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                
+                	if (P_RawRxUnitIdInSalesOrder(rawindex) = P_PCS) then
+                		P_OrderShipper(P_UpdatedIndex) := floor(P_RawRxQuantityInSalesOrder(rawindex) / P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                		P_OrderPcs(P_UpdatedIndex) := mod(P_RawRxQuantityInSalesOrder(rawindex), P_RawConversionRateToShipper(P_OrderSKU(P_UpdatedIndex), P_PCS));
+                	else
+                		P_OrderShipper(P_UpdatedIndex) := P_RawRxQuantityInSalesOrder(rawindex);
+                		P_OrderPcs(P_UpdatedIndex) := 0;
+                	endif;
                 
                 	P_EarliestArrivalTime(P_UpdatedIndex) := (P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawLocalDeliveryStartDate) * 24;
                 	if (P_EarliestArrivalTime(P_UpdatedIndex) < 0) then
@@ -2792,11 +2825,7 @@ Model Main_MilkRun {
                 	dialogMessage("No order passed to local delivery model.", "Error Message");
                 endif;
                 
-                P_BigMInDCServeCustomer1 := 0;
-                for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedLocalDeliveryId) do
-                	S_Truck := S_Truck + rawtk;
-                	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
-                endfor;
+                
                 
                 for ((SKU, rawtm, rawunit) | P_RawWeight(SKU, rawtm, rawunit) > 0) do
                 	S_TransportationMode := S_TransportationMode + rawtm;
@@ -2820,6 +2849,12 @@ Model Main_MilkRun {
                 	if (rawunit = P_SHIPPER) then 
                 		P_VolumePerShipper(SKU, rawtm) := P_RawVolume(SKU, rawtm, rawunit);
                 	endif;
+                endfor;
+                
+                P_BigMInDCServeCustomer1 := 0;
+                for(rawtk | P_RawTruckOwnerId(rawtk) = P_SelectedLocalDeliveryId and P_RawTMofTruckType(P_RawTruckTruckType(rawtk)) in S_TransportationMode) do
+                	S_Truck := S_Truck + rawtk;
+                	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
                 endfor;
                 
                 S_SN := S_RawSN;
@@ -3058,6 +3093,9 @@ Model Main_MilkRun {
                 StringParameter P_MRResultUnDeliverOrderSKUDescription {
                     IndexDomain: rawindex;
                 }
+                ElementParameter P_MRResultUpdatedIndex {
+                    Range: S_RawIndex;
+                }
             }
             Procedure PassMilkRunResult {
                 Body: {
@@ -3225,8 +3263,9 @@ Model Main_MilkRun {
                     !		P_MRResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
                     
                     		P_MRResultUnDeliverOrderShipper(od) := V_UnMetOrderShipper(od);
-                    		P_MRResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(od);
-                    		P_MRResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
+                    		P_MRResultUpdatedIndex := od - card(S_RawIndex) / 2;
+                    		P_MRResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex);
+                    		P_MRResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex));
                     	endif;
                     endfor;
                     
@@ -3241,8 +3280,9 @@ Model Main_MilkRun {
                     !		P_MRResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
                     
                     		P_MRResultUnDeliverOrderPcs(od) := V_UnMetOrderNonFullShipper(od) * P_OrderPcs(od);
-                    		P_MRResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(od);
-                    		P_MRResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
+                    		P_MRResultUpdatedIndex := od - card(S_RawIndex) / 2;
+                    		P_MRResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex);
+                    		P_MRResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex));
                     	endif;
                     endfor;
                     
@@ -3433,8 +3473,9 @@ Model Main_MilkRun {
                     !		P_MRResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
                     
                     		P_MRResultUnDeliverOrderShipper(allod) := P_SubV_UnMetOrderShipper(allod);
-                    		P_MRResultUnDeliverOrderSKU(allod) := P_RawRxSKUInSalesOrder(allod);
-                    		P_MRResultUnDeliverOrderSKUDescription(allod) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(allod));
+                    		P_MRResultUpdatedIndex := allod - card(S_RawIndex) / 2;
+                    		P_MRResultUnDeliverOrderSKU(allod) := P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex);
+                    		P_MRResultUnDeliverOrderSKUDescription(allod) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex));
                     	endif;
                     endfor;
                     
@@ -3449,8 +3490,9 @@ Model Main_MilkRun {
                     !		P_MRResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
                     
                     		P_MRResultUnDeliverOrderPcs(allod) := P_SubV_UnMetOrderNonFullShipper(allod) * P_SubInput_OrderPcs(allod);
-                    		P_MRResultUnDeliverOrderSKU(allod) := P_RawRxSKUInSalesOrder(allod);
-                    		P_MRResultUnDeliverOrderSKUDescription(allod) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(allod));
+                    		P_MRResultUpdatedIndex := allod - card(S_RawIndex) / 2;
+                    		P_MRResultUnDeliverOrderSKU(allod) := P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex);
+                    		P_MRResultUnDeliverOrderSKUDescription(allod) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_MRResultUpdatedIndex));
                     	endif;
                     endfor;
                     
@@ -3708,6 +3750,9 @@ Model Main_MilkRun {
                 StringParameter P_LDResultUnDeliverOrderSKUDescription {
                     IndexDomain: rawindex;
                 }
+                ElementParameter P_LDResultUpdatedIndex {
+                    Range: S_RawIndex;
+                }
             }
             Procedure PassLocalDeliveryResult {
                 Body: {
@@ -3851,9 +3896,10 @@ Model Main_MilkRun {
                     		P_LDResultUnDeliverOrderSKU(od) := P_RawSKUInSalesOrderVx(od);
                     		P_LDResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawSKUInSalesOrderVx(od));
                     	else
-                    		P_LDResultUnDeliverOrderShipper(od - card(S_RawIndex) / 2) := V_UnMetOrderShipper(od);
-                    		P_LDResultUnDeliverOrderSKU(od - card(S_RawIndex) / 2) := P_RawRxSKUInSalesOrder(od);
-                    		P_LDResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
+                    		P_LDResultUnDeliverOrderShipper(od) := V_UnMetOrderShipper(od);
+                    		P_LDResultUpdatedIndex := od - card(S_RawIndex) / 2;
+                    		P_LDResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(P_LDResultUpdatedIndex);
+                    		P_LDResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_LDResultUpdatedIndex));
                     	endif;
                     endfor;
                     
@@ -3863,9 +3909,10 @@ Model Main_MilkRun {
                     		P_LDResultUnDeliverOrderSKU(od) := P_RawSKUInSalesOrderVx(od);
                     		P_LDResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawSKUInSalesOrderVx(od));		
                     	else
-                    		P_LDResultUnDeliverOrderPcs(od - card(S_RawIndex) / 2) := V_UnMetOrderNonFullShipper(od) * P_OrderPcs(od);
-                    		P_LDResultUnDeliverOrderSKU(od - card(S_RawIndex) / 2) := P_RawRxSKUInSalesOrder(od);
-                    		P_LDResultUnDeliverOrderSKUDescription(od - card(S_RawIndex) / 2) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(od));
+                    		P_LDResultUnDeliverOrderPcs(od) := V_UnMetOrderNonFullShipper(od) * P_OrderPcs(od);
+                    		P_LDResultUpdatedIndex := od - card(S_RawIndex) / 2;
+                    		P_LDResultUnDeliverOrderSKU(od) := P_RawRxSKUInSalesOrder(P_LDResultUpdatedIndex);
+                    		P_LDResultUnDeliverOrderSKUDescription(od) := P_RawSKUDescription(P_RawRxSKUInSalesOrder(P_LDResultUpdatedIndex));
                     	endif;
                     endfor;
                     

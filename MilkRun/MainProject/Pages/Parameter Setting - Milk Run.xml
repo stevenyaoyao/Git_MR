@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Page Version="4000" TimeStamp="2018-02-11 05:30:00">
+<Page Version="4000" TimeStamp="2018-03-16 02:09:22">
 	<PageEditSize Type="Inherited" />
 	<ProjectUUID>BDD90824-CCB9-40A1-856D-589AB1209103</ProjectUUID>
 	<TemplatesTabOrderPosition>1</TemplatesTabOrderPosition>
@@ -334,6 +334,10 @@
 				<Title ID="4120">"SKU"</Title>
 			</Explicit_Identifier>
 			<Explicit_Identifier>
+				<Identifier ID="4110">P_RawRxUnitIdInSalesOrder( rawindex )</Identifier>
+				<Title ID="4120">"Unit"</Title>
+			</Explicit_Identifier>
+			<Explicit_Identifier>
 				<Identifier ID="4110">P_RawRxQuantityInSalesOrder( rawindex )</Identifier>
 				<Title ID="4120">"Quantity"</Title>
 				<Format>
@@ -452,6 +456,7 @@
 			<Symbol>P_RawRxRegionInSalesOrder</Symbol>
 			<Symbol>P_RawRxSKUInSalesOrder</Symbol>
 			<Symbol>P_RawRxStatusInSalesOrder</Symbol>
+			<Symbol>P_RawRxUnitIdInSalesOrder</Symbol>
 			<Symbol>P_RawRxQuantityInSalesOrder</Symbol>
 			<Symbol>P_RawRxLocalDeliveryIdInSalesOrder</Symbol>
 			<Symbol>P_RawRxPreferredDeliveryStartDateInSalesOrder</Symbol>
