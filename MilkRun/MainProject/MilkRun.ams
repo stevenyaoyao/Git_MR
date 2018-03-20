@@ -1754,7 +1754,8 @@ Model Main_MilkRun {
                 	P_NumberOfOrderInModel := P_NumberOfOrderInModel + 1;
                 endfor;
                 
-                if (P_NumberOfOrderInModel <= 80) then
+                !if (P_NumberOfOrderInModel <= 80) then
+                if (P_NumberOfOrderInModel <= P_MaxOrdersPerRun) then
                 	PassingRawDataToMilkRunModel;
                 
                 	empty DecisionVariables;
@@ -1768,7 +1769,8 @@ Model Main_MilkRun {
                 	solve OptiModel;
                 
                 	PassMilkRunResult;
-                elseif (P_NumberOfOrderInModel > 80) then
+                !elseif (P_NumberOfOrderInModel > 80) then
+                elseif (P_NumberOfOrderInModel > P_MaxOrdersPerRun) then
                 	DecompostionByAngle;
                 endif;
             }
@@ -1867,18 +1869,39 @@ Model Main_MilkRun {
                     Range: binary;
                 }
             }
+            DeclarationSection ClusterOrderEquallyDeclaration {
+                Set S_AllOrderIndexSet {
+                    SubsetOf: S_RawIndex;
+                    Index: aoi;
+                    OrderBy: P_AllOrderAngle(aoi);
+                }
+                Parameter P_AllOrderAngle {
+                    IndexDomain: aoi;
+                }
+                Parameter P_IsAllOrderProcessed {
+                    IndexDomain: aoi;
+                }
+                Parameter p_numRuns;
+                Parameter p_numOrderPerRun;
+                Parameter P_MaxOrdersPerRun {
+                    Definition: 80;
+                }
+                Parameter runIndex;
+                Parameter numOrderAdded;
+            }
             Procedure DecompostionByAngle {
                 Body: {
                     CalculateAngle;
                     
-                    ClusterOrder;
+                    !ClusterOrder;
+                    ClusterOrderEqually;
                 }
             }
             Procedure CalculateAngle {
                 Body: {
                     empty S_AllInModelOrder;
                     
-                    P_Angle(rawindex) := 0;
+                    P_Angle(rawindex) := 999;
                     
                     for (rawindex | P_IsVxOrderInScope(rawindex) = 1 and P_IsVxOrderInModel(rawindex) = 1
                     		and P_RawCustomerInSalesOrderVx(rawindex) in S_RawCustomer
@@ -1958,46 +1981,6 @@ Model Main_MilkRun {
                     if (P_Actual_SolvingTimeLimit <= 20) then
                     	P_Actual_SolvingTimeLimit := 20;
                     endif;
-                    
-                    !P_Actual_SolvingTimeLimit := 5;
-                    !P_NumberOfSubModels := 5;
-                    
-                    !if (P_RawSelectedDC = 'GZDC') then
-                    !	P_NumberOfSubModels := P_NumberOfOrderInModel/50;
-                    !	P_AngleLB := 0;
-                    !	P_AngleUB := 360;
-                    !	P_AngleBound := 0;
-                    !	
-                    !	! SubModel
-                    !	while (P_NumberOfSubModels < 4) do
-                    !		if (P_NumberOfSubModels = 0) then
-                    !			P_AngleLB := 0;
-                    !			P_AngleUB := 120;
-                    !		endif;		
-                    !		P_NumberOfSubModels := P_NumberOfSubModels + 1;
-                    !
-                    !		P_IsVxOrderInSubModel(rawindex) := 0;
-                    !		P_IsRxOrderInSubModel(rawindex) := 0;
-                    !
-                    !		for (rawindex | P_Angle(rawindex) >= P_AngleLB and P_Angle(rawindex) < P_AngleUB) do
-                    !			if (rawindex <= card(S_RawIndex) / 2) then
-                    !				P_IsVxOrderInSubModel(rawindex) := 1;
-                    !			else
-                    !				P_IsRxOrderInSubModel(rawindex) := 1;
-                    !			endif;
-                    !		endfor;
-                    !
-                    !		PassingRawDataToMilkRunSubModel;
-                    !
-                    !		empty DecisionVariables;
-                    !		OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 * P_SubModelOrders/P_NumberOfOrderInModel));
-                    !		solve OptiModel;
-                    !
-                    !		SaveSubModelResult;
-                    !	endwhile;
-                    !
-                    !	PassMilkRunResultAggregate;
-                    !endif;
                     
                     if (P_RawSelectedDC = 'GZDC') then
                     	! SubModel
@@ -2328,6 +2311,66 @@ Model Main_MilkRun {
                     		solve OptiModel;
                     
                     		SaveSubModelResult;
+                    	endwhile;
+                    
+                    	PassMilkRunResultAggregate;
+                    endif;
+                }
+            }
+            Procedure ClusterOrderEqually {
+                Body: {
+                    empty SubModelResult;
+                    
+                    P_IsVxOrderInSubModel(rawindex) := 0;
+                    P_IsRxOrderInSubModel(rawindex) := 0;
+                    
+                    P_NumberOfSubModels := 0;
+                    
+                    P_Actual_SolvingTimeLimit := P_UI_SolvingTimeLimit;
+                    if (P_Actual_SolvingTimeLimit <= 20) then
+                    	P_Actual_SolvingTimeLimit := 20;
+                    endif;
+                    
+                    empty S_AllOrderIndexSet, P_AllOrderAngle;
+                    empty P_IsAllOrderProcessed;
+                    
+                    for (rawindex | P_Angle(rawindex) <= 360 ) do
+                    	S_AllOrderIndexSet := S_AllOrderIndexSet + rawindex;
+                    
+                    	P_AllOrderAngle(rawindex) := P_Angle(rawindex);
+                    endfor;
+                    
+                    p_numRuns := Ceil(card(S_AllOrderIndexSet) / P_MaxOrdersPerRun);
+                    
+                    if(p_numRuns) then
+                    	p_numOrderPerRun := Ceil(card(S_AllOrderIndexSet) / p_numRuns);
+                    
+                    	runIndex := 1;
+                    	while(runIndex <= p_numRuns) do    	
+                          		P_IsVxOrderInSubModel(aoi) := 0;
+                    		P_IsRxOrderInSubModel(aoi) := 0;
+                    
+                    		numOrderAdded := 0;
+                    
+                    		for(aoi | not P_IsAllOrderProcessed(aoi) and numOrderAdded < p_numOrderPerRun) do
+                             		if (aoi <= card(S_RawIndex) / 2) then
+                              			P_IsVxOrderInSubModel(aoi) := 1;
+                             		else
+                              			P_IsRxOrderInSubModel(aoi) := 1;          
+                              		endif;
+                    
+                            		P_IsAllOrderProcessed(aoi) := 1;
+                              		numOrderAdded := numOrderAdded + 1;
+                           		endfor;
+                    
+                            	PassingRawDataToMilkRunSubModel;
+                    
+                            	empty DecisionVariables;
+                            	OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 / p_numRuns));
+                            	solve OptiModel;
+                    
+                    		SaveSubModelResult;
+                    		runIndex := runIndex + 1;
                     	endwhile;
                     
                     	PassMilkRunResultAggregate;
