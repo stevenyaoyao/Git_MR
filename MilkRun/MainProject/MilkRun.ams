@@ -1350,6 +1350,21 @@ Model Main_MilkRun {
             }
         }
     }
+    Section SolverLogSection {
+        DeclarationSection SolverLog {
+            StringParameter P_CurrentFormat {
+                Definition: "%c%y-%m-%d-%H-%M-%S";
+            }
+            StringParameter P_CurrentTime;
+            StringParameter P_LocalLogFileName {
+                Definition: "Solver-log-"+P_CurrentTime;
+            }
+            StringParameter P_PROSolverLogName {
+                Definition: "messages.log";
+            }
+            StringParameter P_PROTempFolder;
+        }
+    }
     Section RunSection {
         Procedure CalculateDistance {
             Arguments: (la1,la2,lon1,lon2,dis);
@@ -1744,10 +1759,21 @@ Model Main_MilkRun {
         Procedure RunMilkRunModel {
             Body: {
                 if(pro::DelegateToServer) then
+                
+                   !pro::RetrieveFileFromCentralStorage( "publicdata/" +P_PROSolverLogName, "c:/temp/" + P_PROSolverLogName);
+                   P_CurrentTime :=currenttostring(P_CurrentFormat);
+                   pro::RetrieveFileFromCentralStorage( "publicdata/" +P_PROSolverLogName, "c:/temp/" + P_LocalLogFileName);
+                
                    return 1;
                 endif;
                 
+                option solver_window_messages := 'All';
+                option solver_listing_messages := 'All';
                 
+                option mip_display := 'Display each nth node';
+                !option simplex_display := 'Every iteration';  
+                option mip_interval :=1;
+                option major_messages := 'Show major messages';
                 
                 P_NumberOfOrderInModel := 0;
                 for (rawindex | P_IsVxOrderInModel(rawindex) = 1 or P_IsRxOrderInModel(rawindex) = 1) do
@@ -1773,6 +1799,10 @@ Model Main_MilkRun {
                 elseif (P_NumberOfOrderInModel > P_MaxOrdersPerRun) then
                 	DecompostionByAngle;
                 endif;
+                
+                P_protempfolder := pro::PROTempFolder + "/" + P_PROSolverLogName;
+                
+                pro::SaveFileToCentralStorage( P_protempfolder, "publicdata/" + P_PROSolverLogName );
             }
         }
         Section DecompostionByAngleSection {
