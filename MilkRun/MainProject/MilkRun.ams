@@ -862,6 +862,9 @@ Model Main_MilkRun {
                 	endfor;
                 endif;
                 
+                for (rawindex | not (P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) in Cal_Days)) do
+                	P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) := P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) + P_RawOrderDateGapDeliveryEndDate;
+                endfor;
                 !P_RawCustomerInSalesOrderVx
             }
         }
@@ -1436,6 +1439,7 @@ Model Main_MilkRun {
                 InitialData: 30;
             }
             Parameter P_Actual_SolvingTimeLimit;
+            Parameter P_Delegate;
         }
         Procedure OrderSelectionMilkRun {
             Body: {
@@ -1758,11 +1762,15 @@ Model Main_MilkRun {
         }
         Procedure RunMilkRunModel {
             Body: {
+                P_Delegate := 0;
+                
                 if(pro::DelegateToServer) then
                 
                    !pro::RetrieveFileFromCentralStorage( "publicdata/" +P_PROSolverLogName, "c:/temp/" + P_PROSolverLogName);
                    P_CurrentTime :=currenttostring(P_CurrentFormat);
                    pro::RetrieveFileFromCentralStorage( "publicdata/" +P_PROSolverLogName, "c:/temp/" + P_LocalLogFileName);
+                
+                   P_Delegate := 1;	
                 
                    return 1;
                 endif;
@@ -1800,9 +1808,11 @@ Model Main_MilkRun {
                 	DecompostionByAngle;
                 endif;
                 
-                P_protempfolder := pro::PROTempFolder + "/" + P_PROSolverLogName;
+                if (P_Delegate = 1) then
+                	P_protempfolder := pro::PROTempFolder + "/" + P_PROSolverLogName;
                 
-                pro::SaveFileToCentralStorage( P_protempfolder, "publicdata/" + P_PROSolverLogName );
+                	pro::SaveFileToCentralStorage( P_protempfolder, "publicdata/" + P_PROSolverLogName );
+                endif;
             }
         }
         Section DecompostionByAngleSection {
