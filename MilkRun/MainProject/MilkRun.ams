@@ -763,6 +763,7 @@ Model Main_MilkRun {
                 Range: Cal_Days;
             }
             Parameter P_RawHasVxOrder;
+            Parameter P_RawHasRxOrder;
         }
         Procedure ProcessRawData {
             Body: {
@@ -854,18 +855,29 @@ Model Main_MilkRun {
                 		P_RawHasVxOrder := 1;
                 		break;
                 	endif;
-                endfor; 
+                endfor;
                 if (P_RawHasVxOrder) then
-                	P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryStartDate;
+                	for (rawindex | not (P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) in Cal_Days)) do
+                		P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryStartDate;
+                	endfor;
                 	for (rawindex | not (P_RawLatestDeliveryDateInSalesOrderVx(rawindex) in Cal_Days)) do
                 		P_RawLatestDeliveryDateInSalesOrderVx(rawindex) := P_RawOrderDateInSalesOrderVx(rawindex) + P_RawOrderDateGapDeliveryEndDate;
                 	endfor;
                 endif;
                 
-                for (rawindex | not (P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) in Cal_Days)) do
-                	P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) := P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) + P_RawOrderDateGapDeliveryEndDate;
+                ! If there is no Rx Order, this step is skipped
+                P_RawHasRxOrder := 0;
+                for (rawindex) do
+                	if (P_RawRxQuantityInSalesOrder(rawindex)) then
+                		P_RawHasRxOrder := 1;
+                		break;
+                	endif;
                 endfor;
-                !P_RawCustomerInSalesOrderVx
+                if (P_RawHasRxOrder) then
+                	for (rawindex | not (P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) in Cal_Days)) do
+                		P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) := P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) + P_RawOrderDateGapDeliveryEndDate;
+                	endfor;
+                endif;
             }
         }
     }
@@ -1088,6 +1100,9 @@ Model Main_MilkRun {
             Constraint C_BigTimeWindowConstraint1 {
                 IndexDomain: (tk, od) | (not P_SkuTM(P_OrderSKU(od), P_TruckTM(tk)) = 0);
                 Definition: V_DepartureTime(tk, P_OrderCustomer(od)) <= P_LatestDepartureTime(od) * V_AssignOrder(od, tk);
+                Comment: {
+                    "! and P_LatestDepartureTime(od) < 6*24"
+                }
             }
             Constraint C_BigTimeWindowConstraint2 {
                 IndexDomain: (tk, od) | (not P_SkuTM(P_OrderSKU(od), P_TruckTM(tk)) = 0);
@@ -1123,6 +1138,10 @@ Model Main_MilkRun {
             Constraint C_AssignOrderShipperConstraint3 {
                 IndexDomain: (tk, od) | (not P_SkuTM(P_OrderSKU(od), P_TruckTM(tk)) = 0);
                 Definition: V_AssignOrderShipper(od, tk) + V_AssignOrderNonFullShipper(od, tk) >= V_AssignOrder(od, tk);
+            }
+            Constraint C_AtMostOneTruckForEachOrder {
+                IndexDomain: od;
+                Definition: sum(tk, V_AssignOrder(od, tk)) <= 1;
             }
             Constraint C_MeetOrderConstraint1 {
                 IndexDomain: od;
@@ -1187,6 +1206,14 @@ Model Main_MilkRun {
                 Definition: {
                     V_DcServeCustomer('7003885') = 1;
                 }
+            }
+            Constraint C_Testing1Truck {
+                IndexDomain: tk | tk = "GZ-4.2-1";
+                Definition: sum(cs, V_ServeCustomer(cs, tk)) = 3;
+            }
+            Constraint C_Testing3Trucks {
+                IndexDomain: tk;
+                Definition: sum(cs, V_ServeCustomer(cs, tk)) <= 1;
             }
             Constraint C_SumTransportationCost {
                 Definition: V_TotalTransportationCost = sum((tk, lc1, lc2), P_TransportationCost(tk, lc1, lc2) * V_Travel(tk, lc1, lc2));
@@ -1275,6 +1302,7 @@ Model Main_MilkRun {
                     , C_AssignOrderShipperConstraint1
                     , C_AssignOrderShipperConstraint2
                     , C_AssignOrderShipperConstraint3
+                    , C_AtMostOneTruckForEachOrder
                     , C_MeetOrderConstraint1
                     , C_MeetOrderConstraint2
                     , C_MaximumCustomerPerTripConstraint
@@ -1289,6 +1317,8 @@ Model Main_MilkRun {
                     , C_AccountClosingDayConstraint	!
                     , C_SKUMaximumOnRoadTimeConstraint	!
                     !, C_TestingForceServeCustomer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    !, C_Testing1Truck
+                    !, C_Testing3Trucks
                     , C_SumTransportationCost
                     , C_SumAdditionalCost
                     , C_SumTotalTimeSpan
@@ -1323,6 +1353,7 @@ Model Main_MilkRun {
                     , C_AssignOrderShipperConstraint1
                     , C_AssignOrderShipperConstraint2
                     , C_AssignOrderShipperConstraint3
+                    , C_AtMostOneTruckForEachOrder
                     , C_MeetOrderConstraint1
                     , C_MeetOrderConstraint2
                     , C_MaximumCustomerPerTripConstraint
@@ -1465,10 +1496,12 @@ Model Main_MilkRun {
                 
                 for (rawindex | P_RawDCofDCDivision(P_RawDCDivisionInSalesOrderVx(rawindex)) = P_RawSelectedDC
                 		and (P_RawStatusInSalesOrderVx(rawindex) = P_VxFirmOrderStatus or P_RawStatusInSalesOrderVx(rawindex) = P_VxFirmOrderStatus2)
-                		and P_RawOrderDateInSalesOrderVx(rawindex) < P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryStartDate
-                		and P_RawOrderDateInSalesOrderVx(rawindex) > P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryEndDate		
-                		and P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) < P_RawPlanningHorizonStartDate + P_RawPlannningDays
-                		and P_RawLatestDeliveryDateInSalesOrderVx(rawindex) > P_RawPlanningHorizonStartDate
+                		!and P_RawOrderDateInSalesOrderVx(rawindex) < P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryStartDate
+                		!and P_RawOrderDateInSalesOrderVx(rawindex) > P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryEndDate
+                		and P_RawOrderDateInSalesOrderVx(rawindex) <= P_RawPlanningAtDate
+                		and P_RawOrderDateInSalesOrderVx(rawindex) >= P_RawPlanningAtDate - 6
+                		and P_RawEarliestDeliveryDateInSalesOrderVx(rawindex) <= P_RawPlanningHorizonStartDate + P_RawPlannningDays
+                		and P_RawLatestDeliveryDateInSalesOrderVx(rawindex) >= P_RawPlanningHorizonStartDate
                 		and P_RawCustomerInSalesOrderVx(rawindex) in S_RawCustomer ! or (P_RawCityInSalesOrderVx(rawindex) in S_RawLocalDeliveryId))
                 		) do
                 		P_IsVxOrderInModel(rawindex) := 1;
@@ -1482,8 +1515,10 @@ Model Main_MilkRun {
                 
                 for (rawindex | P_RawRxDCInSalesOrder(rawindex) = P_RawSelectedDC
                 		and P_RawRxStatusInSalesOrder(rawindex) = P_RxFirmOrderStatus
-                		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) < P_RawPlanningHorizonStartDate + P_RawPlannningDays
-                		and P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) > P_RawPlanningHorizonStartDate
+                		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawOrderDateGapDeliveryStartDate <= P_RawPlanningAtDate
+                		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawOrderDateGapDeliveryStartDate >= P_RawPlanningAtDate - 6
+                		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) <= P_RawPlanningHorizonStartDate + P_RawPlannningDays
+                		and P_RawRxPreferredDeliveryEndDateInSalesOrder(rawindex) >= P_RawPlanningHorizonStartDate
                 		and P_RawRxCustomerInSalesOrder(rawindex) in S_RawCustomer ! or (P_RawRxLocalDeliveryIdInSalesOrder(rawindex) in S_RawLocalDeliveryId))
                 		) do
                 		P_IsRxOrderInModel(rawindex) := 1;
@@ -1788,25 +1823,23 @@ Model Main_MilkRun {
                 	P_NumberOfOrderInModel := P_NumberOfOrderInModel + 1;
                 endfor;
                 
-                !if (P_NumberOfOrderInModel <= 80) then
-                if (P_NumberOfOrderInModel <= P_MaxOrdersPerRun) then
-                	PassingRawDataToMilkRunModel;
-                
-                	empty DecisionVariables;
-                
-                	P_Actual_SolvingTimeLimit := P_UI_SolvingTimeLimit;
-                	if (P_Actual_SolvingTimeLimit <= 20) then
-                		P_Actual_SolvingTimeLimit := 20;
-                	endif;
-                	OptionSetValue("Time Limit", P_Actual_SolvingTimeLimit * 60);
-                
-                	solve OptiModel;
-                
-                	PassMilkRunResult;
-                !elseif (P_NumberOfOrderInModel > 80) then
-                elseif (P_NumberOfOrderInModel > P_MaxOrdersPerRun) then
+                !if (P_NumberOfOrderInModel <= P_MaxOrdersPerRun) then
+                !	PassingRawDataToMilkRunModel;
+                !
+                !	empty DecisionVariables;
+                !
+                !	P_Actual_SolvingTimeLimit := P_UI_SolvingTimeLimit;
+                !	if (P_Actual_SolvingTimeLimit <= 20) then
+                !		P_Actual_SolvingTimeLimit := 20;
+                !	endif;
+                !	OptionSetValue("Time Limit", P_Actual_SolvingTimeLimit * 60);
+                !
+                !	solve OptiModel;
+                !
+                !	PassMilkRunResult;
+                !elseif (P_NumberOfOrderInModel > P_MaxOrdersPerRun) then
                 	DecompostionByAngle;
-                endif;
+                !endif;
                 
                 if (P_Delegate = 1) then
                 	P_protempfolder := pro::PROTempFolder + "/" + P_PROSolverLogName;
@@ -1912,7 +1945,7 @@ Model Main_MilkRun {
             DeclarationSection ClusterOrderEquallyDeclaration {
                 Set S_AllOrderIndexSet {
                     SubsetOf: S_RawIndex;
-                    Index: aoi;
+                    Index: aoi, aoi2;
                     OrderBy: P_AllOrderAngle(aoi);
                 }
                 Parameter P_AllOrderAngle {
@@ -1924,10 +1957,23 @@ Model Main_MilkRun {
                 Parameter p_numRuns;
                 Parameter p_numOrderPerRun;
                 Parameter P_MaxOrdersPerRun {
-                    Definition: 80;
+                    Definition: 30;
+                    Comment: {
+                        "!30, 50, 80"
+                    }
                 }
                 Parameter runIndex;
                 Parameter numOrderAdded;
+                ElementParameter P_OrderCity {
+                    IndexDomain: aoi;
+                    Range: S_RawCity;
+                }
+                ElementParameter P_CurrentCity {
+                    Range: S_RawCity;
+                }
+                ElementParameter P_UpdatedIndexInCluster {
+                    Range: S_RawIndex;
+                }
             }
             Procedure DecompostionByAngle {
                 Body: {
@@ -2380,6 +2426,23 @@ Model Main_MilkRun {
                     	P_AllOrderAngle(rawindex) := P_Angle(rawindex);
                     endfor;
                     
+                    for (aoi) do
+                            if (aoi <= card(S_RawIndex) / 2) then
+                              	if (not (P_RawCityInSalesOrderVx(aoi) in S_RawLocalDeliveryId)) then
+                              		P_OrderCity(aoi) := P_RawCustomerCity(P_RawCustomerInSalesOrderVx(aoi));
+                              	else
+                              		P_OrderCity(aoi) := P_RawLocalDeliveryCity(P_RawCityInSalesOrderVx(aoi));
+                              	endif;
+                            else
+                            	P_UpdatedIndexInCluster := aoi - card(S_RawIndex) / 2;
+                             	if (not (P_RawRxLocalDeliveryIdInSalesOrder(P_UpdatedIndexInCluster) in S_RawLocalDeliveryId)) then
+                             		P_OrderCity(aoi) := P_RawCustomerCity(P_RawRxCustomerInSalesOrder(P_UpdatedIndexInCluster));
+                             	else
+                             		P_OrderCity(aoi) := P_RawLocalDeliveryCity(P_RawRxLocalDeliveryIdInSalesOrder(P_UpdatedIndexInCluster));
+                             	endif;          			          
+                            endif;
+                    endfor;
+                    
                     p_numRuns := Ceil(card(S_AllOrderIndexSet) / P_MaxOrdersPerRun);
                     
                     if(p_numRuns) then
@@ -2401,15 +2464,31 @@ Model Main_MilkRun {
                     
                             		P_IsAllOrderProcessed(aoi) := 1;
                               		numOrderAdded := numOrderAdded + 1;
+                    
+                    			P_CurrentCity := P_OrderCity(aoi);          		
+                              		for(aoi2 | not P_IsAllOrderProcessed(aoi2) and P_OrderCity(aoi2) = P_CurrentCity) do
+                              			if (aoi2 <= card(S_RawIndex) / 2) then
+                              				P_IsVxOrderInSubModel(aoi2) := 1;
+                             			else
+                              				P_IsRxOrderInSubModel(aoi2) := 1;          
+                              			endif;
+                    
+                            			P_IsAllOrderProcessed(aoi2) := 1;
+                              			numOrderAdded := numOrderAdded + 1;          		
+                              		endfor;
                            		endfor;
                     
-                            	PassingRawDataToMilkRunSubModel;
+                            	if (numOrderAdded) then
+                    	        	PassingRawDataToMilkRunSubModel;
                     
-                            	empty DecisionVariables;
-                            	OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 / p_numRuns));
-                            	solve OptiModel;
+                            		empty DecisionVariables;
+                            		!OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 / p_numRuns));
+                            		OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 * numOrderAdded / card(S_AllOrderIndexSet)));
+                            		solve OptiModel;
                     
-                    		SaveSubModelResult;
+                    			SaveSubModelResult;
+                    		endif;
+                    
                     		runIndex := runIndex + 1;
                     	endwhile;
                     
@@ -3039,6 +3118,7 @@ Model Main_MilkRun {
         Procedure Tem {
             Body: {
                 P_IsVxOrderInModel(rawindex) := 0;
+                P_IsRxOrderInModel(rawindex) := 0;
             }
         }
     }
@@ -3653,8 +3733,121 @@ Model Main_MilkRun {
                     IndexDomain: UsedtkMr;
                 }
                 Parameter P_TotalCostMR;
+                Parameter P_AdditionalDistance;
+                ElementParameter P_FarthestNumber {
+                    Range: S_ResultIndexSet;
+                }
             }
             Procedure CalculateTransportationCostMR {
+                Body: {
+                    empty MilkRunSummaryCost;
+                    
+                    for (UsedtkMr) do
+                    	for (rei | P_MRResultTruck(rei) = UsedtkMr and P_MRResultFromLocation(rei) = P_RawSelectedDC) do
+                    		P_FarthestLocationMR(UsedtkMr) := P_MRResultToLocation(rei);
+                    		P_LongestDistanceMR(UsedtkMr) := P_RawDistance(P_RawSelectedDC, P_FarthestLocationMR(UsedtkMr));
+                    
+                    		P_FarthestNumber := rei;
+                    		break;
+                    	endfor;
+                    
+                    	for (rei | P_MRResultTruck(rei) = UsedtkMr) do
+                    		if (P_RawDistance(P_RawSelectedDC, P_MRResultToLocation(rei)) > P_LongestDistanceMR(UsedtkMr)) then
+                    			P_FarthestLocationMR(UsedtkMr) := P_MRResultToLocation(rei);
+                    			P_LongestDistanceMR(UsedtkMr) := P_RawDistance(P_RawSelectedDC, P_FarthestLocationMR(UsedtkMr));
+                    
+                    			P_FarthestNumber := rei;
+                    		endif;		
+                    	endfor;
+                    
+                    	P_TripCostMR(UsedtkMr) := P_LongestDistanceMR(UsedtkMr) * P_RawTransportationCostPerKm(P_RawTruckTruckType(UsedtkMr));
+                    
+                    	P_AdditionalDropOffCostMR(UsedtkMr) := 0;
+                    	for (rei | P_MRResultTruck(rei) = UsedtkMr and
+                    		   (not (P_MRResultToLocation(rei) = P_RawSelectedDC)) and
+                    		   (not (P_MRResultToLocation(rei) = P_FarthestLocationMR(UsedtkMr)))
+                    		   ) do
+                    !		P_AdditionalDistance := P_RawDistance(P_RawSelectedDC, P_MRResultToLocation(rei))
+                    !		    			+ P_RawDistance(P_MRResultToLocation(rei), P_FarthestLocationMR(UsedtkMr))
+                    !		   	 		- P_RawDistance(P_RawSelectedDC, P_FarthestLocationMR(UsedtkMr));
+                    		if (rei < P_FarthestNumber) then
+                    			P_AdditionalDistance := P_RawDistance(P_MRResultFromLocation(rei), P_MRResultToLocation(rei))
+                    		    				+ P_RawDistance(P_MRResultToLocation(rei), P_FarthestLocationMR(UsedtkMr))
+                    		   	 			- P_RawDistance(P_MRResultFromLocation(rei), P_FarthestLocationMR(UsedtkMr));
+                    		   	if (P_SubInput_IsSameCity(P_MRResultFromLocation(rei), P_MRResultToLocation(rei))
+                    		   	    or P_SubInput_IsSameCity(P_MRResultToLocation(rei), P_FarthestLocationMR(UsedtkMr))) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_SubInput_AdditionalDropoffCostSameCity(UsedtkMr); 			
+                    		   	elseif P_AdditionalDistance <= 120 then
+                    		   		P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							               + P_SubInput_AdditionalDropoffCostDiffCity(UsedtkMr);
+                    			elseif (P_AdditionalDistance <= 500 and P_AdditionalDistance > 120) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostLE500(P_RawTruckTruckType(UsedtkMr))
+                    								         * P_AdditionalDistance;
+                    		   	elseif  (P_AdditionalDistance <= 1000 and P_AdditionalDistance > 500) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostG500LE1000(P_RawTruckTruckType(UsedtkMr))
+                    								 	 * P_AdditionalDistance;
+                    			else
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostG1000(P_RawTruckTruckType(UsedtkMr))
+                    									 * P_AdditionalDistance;
+                    			endif;			
+                    		else 
+                    			P_AdditionalDistance := P_RawDistance(P_MRResultFromLocation(rei), P_MRResultToLocation(rei))
+                    		    				+ P_RawDistance(P_MRResultToLocation(rei), P_RawSelectedDC)
+                    		   	 			- P_RawDistance(P_MRResultFromLocation(rei), P_RawSelectedDC);
+                    		   	if (P_SubInput_IsSameCity(P_MRResultFromLocation(rei), P_MRResultToLocation(rei))
+                    		   	    or P_SubInput_IsSameCity(P_MRResultToLocation(rei), P_RawSelectedDC)) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_SubInput_AdditionalDropoffCostSameCity(UsedtkMr); 			
+                    		   	elseif P_AdditionalDistance <= 120 then
+                    		   		P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							               + P_SubInput_AdditionalDropoffCostDiffCity(UsedtkMr);
+                    			elseif (P_AdditionalDistance <= 500 and P_AdditionalDistance > 120) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostLE500(P_RawTruckTruckType(UsedtkMr))
+                    								         * P_AdditionalDistance;
+                    		   	elseif  (P_AdditionalDistance <= 1000 and P_AdditionalDistance > 500) then
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostG500LE1000(P_RawTruckTruckType(UsedtkMr))
+                    								 	 * P_AdditionalDistance;
+                    			else
+                    				P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    							       	       + P_RawAdditionalDropoffCostG1000(P_RawTruckTruckType(UsedtkMr))
+                    									 * P_AdditionalDistance;
+                    			endif;
+                    		endif;
+                    
+                    !		if (P_AdditionalDistance > 1000) then
+                    !			P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    !							       + P_RawAdditionalDropoffCostG1000(P_RawTruckTruckType(UsedtkMr))
+                    !								 * P_AdditionalDistance;
+                    !		elseif  (P_AdditionalDistance <= 1000 and P_AdditionalDistance > 500) then
+                    !			P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    !							       + P_RawAdditionalDropoffCostG500LE1000(P_RawTruckTruckType(UsedtkMr))
+                    !								 * P_AdditionalDistance;
+                    !		elseif  (P_AdditionalDistance <= 500 and P_AdditionalDistance > 120) then
+                    !			P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    !							       + P_RawAdditionalDropoffCostLE500(P_RawTruckTruckType(UsedtkMr))
+                    !								 * P_AdditionalDistance;
+                    !		elseif  (P_SubInput_IsSameCity(P_FarthestLocationMR(UsedtkMr), P_MRResultToLocation(rei))) then
+                    !			P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    !							       + P_SubInput_AdditionalDropoffCostSameCity(UsedtkMr);		
+                    !		else
+                    !			P_AdditionalDropOffCostMR(UsedtkMr) := P_AdditionalDropOffCostMR(UsedtkMr)
+                    !							       + P_SubInput_AdditionalDropoffCostDiffCity(UsedtkMr);
+                    !		endif;
+                    	endfor;
+                    
+                    	P_SumCostMR(UsedtkMr) := P_TripCostMR(UsedtkMr) + P_AdditionalDropOffCostMR(UsedtkMr);
+                    
+                    	P_TotalCostMR := P_TotalCostMR + P_SumCostMR(UsedtkMr);
+                    endfor;
+                }
+            }
+            Procedure CalculateTransportationCostMR_Backup {
                 Body: {
                     empty MilkRunSummaryCost;
                     
