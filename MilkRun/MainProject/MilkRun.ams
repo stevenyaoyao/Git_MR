@@ -806,6 +806,13 @@ Model Main_MilkRun {
                 	P_RawTransportationCostPerKm(rawtkt) := P_RawDefaultTransportationCostPerKM;
                 endfor;
                 
+                for (rawtkt | P_RawAdditionalDropoffCostSameCity(rawtkt) = 0) do
+                	P_RawAdditionalDropoffCostSameCity(rawtkt) := 400;
+                endfor;
+                for (rawtkt | P_RawAdditionalDropoffCostDiffCity(rawtkt) = 0) do
+                	P_RawAdditionalDropoffCostDiffCity(rawtkt) := 800;
+                endfor;
+                
                 !P_RawTruckCity(rawtk, rawct) no record
                 P_RawTruckCity(rawtk, rawct) := P_RawDefaultTruckCity;
                 
@@ -1489,12 +1496,14 @@ Model Main_MilkRun {
                 
                 ! Select Order - Vx
                 for (rawindex | P_RawDCofDCDivision(P_RawDCDivisionInSalesOrderVx(rawindex)) = P_RawSelectedDC
+                		and P_RawSKUInSalesOrderVx(rawindex) in S_RawSKU
                 		!and P_RawOrderDateInSalesOrderVx(rawindex) <= P_RawPlanningHorizonStartDate
                 		) do
                 		P_IsVxOrderInScope(rawindex) := 1;
                 endfor;
                 
                 for (rawindex | P_RawDCofDCDivision(P_RawDCDivisionInSalesOrderVx(rawindex)) = P_RawSelectedDC
+                		and P_RawSKUInSalesOrderVx(rawindex) in S_RawSKU
                 		and (P_RawStatusInSalesOrderVx(rawindex) = P_VxFirmOrderStatus or P_RawStatusInSalesOrderVx(rawindex) = P_VxFirmOrderStatus2)
                 		!and P_RawOrderDateInSalesOrderVx(rawindex) < P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryStartDate
                 		!and P_RawOrderDateInSalesOrderVx(rawindex) > P_RawPlanningHorizonStartDate - P_RawOrderDateGapDeliveryEndDate
@@ -1509,11 +1518,13 @@ Model Main_MilkRun {
                 
                 ! Select Order - Rx
                 for (rawindex | P_RawRxDCInSalesOrder(rawindex) = P_RawSelectedDC
+                		and P_RawRxSKUInSalesOrder(rawindex) in S_RawSKU
                 		) do
                 		P_IsRxOrderInScope(rawindex) := 1;
                 endfor;
                 
                 for (rawindex | P_RawRxDCInSalesOrder(rawindex) = P_RawSelectedDC
+                		and P_RawRxSKUInSalesOrder(rawindex) in S_RawSKU
                 		and P_RawRxStatusInSalesOrder(rawindex) = P_RxFirmOrderStatus
                 		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawOrderDateGapDeliveryStartDate <= P_RawPlanningAtDate
                 		and P_RawRxPreferredDeliveryStartDateInSalesOrder(rawindex) - P_RawOrderDateGapDeliveryStartDate >= P_RawPlanningAtDate - 6
@@ -2487,6 +2498,8 @@ Model Main_MilkRun {
                             		solve OptiModel;
                     
                     			SaveSubModelResult;
+                    		else
+                    			break;
                     		endif;
                     
                     		runIndex := runIndex + 1;
@@ -2565,9 +2578,11 @@ Model Main_MilkRun {
                     !		) do
                     for (rawindex | P_IsRxOrderInScope(rawindex) = 1 and P_IsRxOrderInModel(rawindex) = 1
                     		and P_RawRxCustomerInSalesOrder(rawindex) in S_RawCustomer ! or (P_RawRxLocalDeliveryIdInSalesOrder(rawindex) in S_RawLocalDeliveryId))
-                    		and P_IsRxOrderInSubModel(rawindex + card(S_RawIndex) / 2) = 1
+                    		!and P_IsRxOrderInSubModel(rawindex + card(S_RawIndex) / 2) = 1
                     		) do
-                    	P_UpdatedIndex := rawindex + card(S_RawIndex) / 2;
+                      P_UpdatedIndex := rawindex + card(S_RawIndex) / 2;		
+                      if (P_IsRxOrderInSubModel(P_UpdatedIndex) = 1) then
+                    	!P_UpdatedIndex := rawindex + card(S_RawIndex) / 2;
                     
                     	S_Order := S_Order + P_UpdatedIndex;
                     	P_SubModelOrders := P_SubModelOrders + 1;
@@ -2611,6 +2626,7 @@ Model Main_MilkRun {
                     
                     		P_OrderCustomer(P_UpdatedIndex) := P_RawRxLocalDeliveryIdInSalesOrder(rawindex);
                     	endif;
+                      endif;
                     endfor;
                     
                     if (card(S_Order) = 0) then
@@ -2781,10 +2797,12 @@ Model Main_MilkRun {
                     !P_SubV_DcServeCustomer(cs) := V_DcServeCustomer(cs);
                     P_SubV_IsBeforeDisallowedTimeWindow(tk, cs, sn) := V_IsBeforeDisallowedTimeWindow(tk, cs, sn);
                     
-                    for (od | V_UnMetOrderShipper(od) > 0) do
+                    !for (od | V_UnMetOrderShipper(od) > 0) do
+                    for (od | V_UnMetOrderShipper(od) > 0.1) do
                     	P_SubV_UnMetOrderShipper(od) := V_UnMetOrderShipper(od);
                     endfor;
-                    for (od | V_UnMetOrderNonFullShipper(od) > 0) do
+                    !for (od | V_UnMetOrderNonFullShipper(od) > 0) do
+                    for (od | V_UnMetOrderNonFullShipper(od) > 0.1) do
                     	P_SubV_UnMetOrderNonFullShipper(od) := V_UnMetOrderNonFullShipper(od);
                     endfor;
                     
@@ -2794,7 +2812,9 @@ Model Main_MilkRun {
                     P_SubV_TotalUnMetOrder := P_SubV_TotalUnMetOrder + V_TotalUnMetOrder;
                     P_SubV_Objective := P_SubV_Objective + V_Objective;
                     
-                    for((od, tk) | V_AssignOrder(od, tk) = 1) do
+                    !for((od, tk) | V_AssignOrder(od, tk) = 1) do
+                    !for((od, tk) | V_AssignOrder(od, tk)) do
+                    for((od, tk) | V_AssignOrder(od, tk) > 0.9) do
                     	P_IsUsedTruck(tk) := 1;
                     endfor;
                     
@@ -2808,7 +2828,8 @@ Model Main_MilkRun {
                     	P_SubInput_OrderSKU(od) := P_OrderSKU(od);
                     endfor;
                     
-                    for (od | P_OrderPcs(od) > 0) do
+                    !for (od | P_OrderPcs(od) > 0) do
+                    for (od | P_OrderPcs(od) > 0.9) do
                     	P_SubInput_OrderPcs(od) := P_OrderPcs(od);
                     endfor;
                     
@@ -3479,7 +3500,9 @@ Model Main_MilkRun {
                     P_MRResultIndex := 1;
                     P_MRResultOrderIndex := 1;
                     
-                    for ((rawtk, rawlc) | P_SubV_Travel(rawtk, P_RawSelectedDC, rawlc) = 1) do
+                    !for ((rawtk, rawlc) | P_SubV_Travel(rawtk, P_RawSelectedDC, rawlc) = 1) do
+                    !for ((rawtk, rawlc) | P_SubV_Travel(rawtk, P_RawSelectedDC, rawlc)) do
+                    for ((rawtk, rawlc) | P_SubV_Travel(rawtk, P_RawSelectedDC, rawlc) > 0.9) do
                     	S_UsedTruckMR := S_UsedTruckMR + rawtk;
                     
                     	P_MRResultTruck(P_MRResultIndex) := rawtk;
@@ -3504,7 +3527,8 @@ Model Main_MilkRun {
                     	P_MRResultArrivalTime(P_MRResultIndex) := mod((P_SubV_DepartureTime(rawtk, P_RawSelectedDC) + P_SubInput_TransportationTime(rawtk, P_RawSelectedDC, rawlc)), 24);
                     
                     	P_MRResultOrderTruckSequence(P_MRResultOrderIndex) := 1;
-                    	for(allod | P_SubV_AssignOrder(allod, rawtk) = 1 and P_SubInput_OrderCustomer(allod) = rawlc) do
+                    	!for(allod | P_SubV_AssignOrder(allod, rawtk) = 1 and P_SubInput_OrderCustomer(allod) = rawlc) do
+                    	for(allod | P_SubV_AssignOrder(allod, rawtk) > 0.9 and P_SubInput_OrderCustomer(allod) = rawlc) do
                     		P_MRResultOrderTruck(P_MRResultOrderIndex) := rawtk;
                     		P_MRResultDCDepartureDate(P_MRResultOrderIndex) := P_RawPlanningHorizonStartDate + floor(P_SubV_DepartureTime(rawtk, P_RawSelectedDC) / 24);
                     		P_MRResultOrderCustomer(P_MRResultOrderIndex) := rawlc;
@@ -3540,7 +3564,8 @@ Model Main_MilkRun {
                     	P_MRResultIndex := P_MRResultIndex + 1;
                     
                     	while (not (P_MRResultNextLocation = P_RawSelectedDC)) do
-                    		for(rawlc2 | P_SubV_Travel(rawtk, P_MRResultNextLocation, rawlc2) = 1) do
+                    		!for(rawlc2 | P_SubV_Travel(rawtk, P_MRResultNextLocation, rawlc2) = 1) do
+                    		for(rawlc2 | P_SubV_Travel(rawtk, P_MRResultNextLocation, rawlc2) > 0.9) do
                     			S_UsedTruckMR := S_UsedTruckMR + rawtk;
                     
                     			P_MRResultTruck(P_MRResultIndex) := rawtk;
@@ -3574,7 +3599,12 @@ Model Main_MilkRun {
                     			P_MRResultArrivalTime(P_MRResultIndex) := mod((P_SubV_DepartureTime(rawtk, P_MRResultNextLocation) + P_SubInput_TransportationTime(rawtk, P_MRResultNextLocation, rawlc2)), 24);
                     
                     			if (not (rawlc2 = P_RawSelectedDC)) then
-                    				for(allod | P_SubV_AssignOrder(allod, rawtk) = 1 and P_SubInput_OrderCustomer(allod) = rawlc2) do
+                    				!for(allod | (P_SubV_AssignOrder(allod, rawtk) = 1 and P_SubInput_OrderCustomer(allod) = rawlc2)) do
+                    				for(allod) do
+                    				  !if (P_SubV_AssignOrder(allod, rawtk) = 1) then
+                    				  if (P_SubV_AssignOrder(allod, rawtk) > 0.9) then
+                    				  !if (P_SubV_AssignOrder(allod, rawtk)) then
+                    				    if(P_SubInput_OrderCustomer(allod) = rawlc2) then
                     					P_MRResultOrderTruck(P_MRResultOrderIndex) := rawtk;
                     					P_MRResultDCDepartureDate(P_MRResultOrderIndex) := P_RawPlanningHorizonStartDate + floor(P_SubV_DepartureTime(rawtk, P_RawSelectedDC) / 24);
                     					P_MRResultOrderCustomer(P_MRResultOrderIndex) := rawlc2;
@@ -3602,6 +3632,8 @@ Model Main_MilkRun {
                     
                     					P_MRResultOrderTruckSequence(P_MRResultOrderIndex) := P_MRResultOrderTruckSequence(P_MRResultOrderIndex - 1) + 1;
                     					P_MRResultOrderIndex := P_MRResultOrderIndex + 1;
+                    				    endif;
+                    				  endif; 
                     				endfor;
                     			endif;
                     		endfor;
@@ -3625,7 +3657,8 @@ Model Main_MilkRun {
                     
                     
                     ! UnDelivered Order table
-                    for(allod | P_SubV_UnMetOrderShipper(allod) > 0) do
+                    !for(allod | P_SubV_UnMetOrderShipper(allod) > 0) do
+                    for(allod | P_SubV_UnMetOrderShipper(allod) > 0.9) do
                     	if (allod <= card(S_RawIndex) / 2) then
                     		P_MRResultUnDeliverOrderShipper(allod) := P_SubV_UnMetOrderShipper(allod);
                     		P_MRResultUnDeliverOrderSKU(allod) := P_RawSKUInSalesOrderVx(allod);
@@ -3642,7 +3675,8 @@ Model Main_MilkRun {
                     	endif;
                     endfor;
                     
-                    for(allod | P_SubV_UnMetOrderNonFullShipper(allod) > 0) do
+                    !for(allod | P_SubV_UnMetOrderNonFullShipper(allod) > 0) do
+                    for(allod | P_SubV_UnMetOrderNonFullShipper(allod) > 0.9) do
                     	if (allod <= card(S_RawIndex) / 2) then
                     		P_MRResultUnDeliverOrderPcs(allod) := P_SubV_UnMetOrderNonFullShipper(allod) * P_SubInput_OrderPcs(allod);
                     		P_MRResultUnDeliverOrderSKU(allod) := P_RawSKUInSalesOrderVx(allod);
