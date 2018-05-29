@@ -56,7 +56,10 @@ Model Main_MilkRun {
                 SubsetOf: Integers;
                 Index: rawsn;
                 Definition: {
-                    {1..100}
+                    {1..12}
+                }
+                Comment: {
+                    "!{1..20} !{1..100}"
                 }
             }
             Set S_RawIndex {
@@ -896,7 +899,7 @@ Model Main_MilkRun {
             }
             Set S_Customer {
                 SubsetOf: S_Location;
-                Index: cs;
+                Index: cs, cs1;
             }
             Set S_Truck {
                 SubsetOf: S_RawTruck;
@@ -1039,7 +1042,7 @@ Model Main_MilkRun {
         }
         DeclarationSection DecisionVariables {
             Variable V_Travel {
-                IndexDomain: (tk,lc1,lc2) | not (lc1 = lc2);
+                IndexDomain: (tk,lc1,lc2) | (lc1 <> lc2) and ((not (lc1 in S_Customer)) or not P_IsCsNotNeeded(lc1)) and ((not(lc2 in S_Customer)) or not P_IsCsNotNeeded(lc2));
                 Range: binary;
             }
             Variable V_DepartureTime {
@@ -1047,7 +1050,7 @@ Model Main_MilkRun {
                 Range: integer;
             }
             Variable V_AssignOrder {
-                IndexDomain: (od,tk) | (not P_SkuTM(P_OrderSKU(od), P_TruckTM(tk)) = 0);
+                IndexDomain: (od,tk) | ((not P_SkuTM(P_OrderSKU(od), P_TruckTM(tk)) = 0)) and P_PossibleOrderTruck(od, tk);
                 Range: binary;
             }
             Variable V_AssignOrderShipper {
@@ -1968,7 +1971,7 @@ Model Main_MilkRun {
                 Parameter p_numRuns;
                 Parameter p_numOrderPerRun;
                 Parameter P_MaxOrdersPerRun {
-                    Definition: 30;
+                    Definition: 20;
                     Comment: {
                         "!30, 50, 80"
                     }
@@ -1984,6 +1987,80 @@ Model Main_MilkRun {
                 }
                 ElementParameter P_UpdatedIndexInCluster {
                     Range: S_RawIndex;
+                }
+            }
+            DeclarationSection TruckReduction {
+                Set S_TruckType {
+                    SubsetOf: S_RawTruckType;
+                    Index: tt;
+                }
+                Parameter P_SubTotalWeight;
+                Parameter P_SubTotalVolume;
+                Parameter P_NumOfNeededTrucks {
+                    IndexDomain: tt;
+                }
+                Parameter P_TemNum;
+                Parameter P_AdjustParameter;
+            }
+            Section Clustering {
+                DeclarationSection ClusteringDeclaration {
+                    Parameter P_IsCsNotNeeded {
+                        IndexDomain: cs;
+                    }
+                    Parameter P_cusDistance {
+                        IndexDomain: (cs, cs1);
+                    }
+                    Parameter P_ReplacementDis;
+                    ElementParameter P_OrderOriginalCs {
+                        IndexDomain: od;
+                        Range: S_Customer;
+                    }
+                    Parameter P_PossibleOrderTruck {
+                        IndexDomain: (od, tk);
+                    }
+                    Parameter P_Number1;
+                }
+                Procedure PrepareClusterData {
+                    Body: {
+                        empty P_IsCsNotNeeded, P_cusDistance, P_OrderOriginalCs;
+                        P_Number1 := 0;
+                        P_PossibleOrderTruck(od, tk) := 1;
+                        
+                        P_OrderOriginalCs(od) := P_OrderCustomer(od);
+                        P_ReplacementDis := 10;
+                        
+                        for(cs, cs1 | P_RawLatitude(cs) > 0 and P_RawLatitude(cs1) > 0 
+                        	      and P_RawLongitude(cs) > 0 and P_RawLongitude(cs1) > 0 and not (cs = cs1)) do
+                        	CalculateDistance(P_RawLatitude(cs), P_RawLatitude(cs1), P_RawLongitude(cs), P_RawLongitude(cs1), P_cusDistance(cs, cs1));
+                        
+                        	if(P_cusDistance(cs, cs1) >= 0 and P_cusDistance(cs, cs1) <= P_ReplacementDis) then
+                        		P_Number1 := P_Number1 + 1;
+                        	endif;
+                        endfor;
+                        
+                        for(cs | not P_IsCsNotNeeded(cs)) do
+                        	for(cs1 | cs <> cs1 and P_cusDistance(cs, cs1) >= 0 and P_cusDistance(cs, cs1) <= P_ReplacementDis and not P_IsCsNotNeeded(cs1)) do
+                        		P_IsCsNotNeeded(cs1) := 1;
+                               		for(od | P_OrderCustomer(od) = cs1) do
+                                  		P_OrderCustomer(od) := cs;
+                               		endfor;
+                        	endfor;
+                        endfor;
+                    }
+                }
+                Procedure PrepareSecondRunData {
+                    Body: {
+                        for((od, tk)) do
+                        	if(V_AssignOrder(od, tk) > 0.9) then
+                        		P_PossibleOrderTruck(od, tk) := 1;
+                        	else
+                        		P_PossibleOrderTruck(od, tk) := 0;
+                        	endif;
+                        endfor;
+                        
+                        P_IsCsNotNeeded(cs) := 0;
+                        P_OrderCustomer(od) := P_OrderOriginalCs(od);
+                    }
                 }
             }
             Procedure DecompostionByAngle {
@@ -2492,12 +2569,23 @@ Model Main_MilkRun {
                             	if (numOrderAdded) then
                     	        	PassingRawDataToMilkRunSubModel;
                     
+                    			P_PossibleOrderTruck(od, tk) := 1;
+                    
+                    !			PrepareClusterData;
+                    
                             		empty DecisionVariables;
-                            		!OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 / p_numRuns));
                             		OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 60 * numOrderAdded / card(S_AllOrderIndexSet)));
                             		solve OptiModel;
                     
-                    			SaveSubModelResult;
+                    !        		PrepareSecondRunData;
+                    !
+                    !         		empty DecisionVariables;
+                    !        		OptionSetValue("Time Limit", ceil(P_Actual_SolvingTimeLimit * 0.5 * 60 * numOrderAdded / card(S_AllOrderIndexSet)));
+                    !        		solve OptiModel;
+                    
+                    
+                    
+                            		SaveSubModelResult;
                     		else
                     			break;
                     		endif;
@@ -2668,6 +2756,55 @@ Model Main_MilkRun {
                     	S_Truck := S_Truck + rawtk;
                     	P_BigMInDCServeCustomer1 := P_BigMInDCServeCustomer1 + 1;
                     endfor;
+                    
+                    
+                    
+                    ! Truck reduction for sub model
+                    empty S_TruckType;
+                    P_SubTotalWeight := 0;
+                    P_SubTotalVolume := 0;
+                    P_NumOfNeededTrucks(tt) := 0;
+                    P_TemNum := 0;
+                    P_AdjustParameter := 1;
+                    
+                    for (tk) do
+                    	S_TruckType := S_TruckType + P_RawTruckTruckType(tk);
+                    endfor;
+                    
+                    empty S_Truck;
+                    for (tt) do
+                    	P_SubTotalWeight := 0;
+                    	P_SubTotalVolume := 0;
+                    
+                    	for (od) do
+                    		if (P_SkuTM(P_OrderSKU(od), P_RawTMofTruckType(tt)) = 1) then
+                    			P_SubTotalWeight := P_SubTotalWeight
+                    					    + P_WeightPerShipper(P_OrderSKU(od), P_RawTMofTruckType(tt)) * P_OrderShipper(od)
+                    					    + P_WeightPerPcs(P_OrderSKU(od), P_RawTMofTruckType(tt)) * P_OrderPcs(od);
+                    			P_SubTotalVolume := P_SubTotalVolume
+                    					    + P_VolumePerShipper(P_OrderSKU(od), P_RawTMofTruckType(tt)) * (P_OrderShipper(od) + 1);
+                    		endif;
+                    	endfor;
+                    
+                    	P_NumOfNeededTrucks(tt) | P_RawWeightCapacity(tt) > 0 := ceil(P_SubTotalWeight / P_RawWeightCapacity(tt));
+                    	P_TemNum | P_RawVolumeCapacity(tt) > 0 := ceil(P_SubTotalVolume / P_RawVolumeCapacity(tt));
+                    	if (P_TemNum > P_NumOfNeededTrucks(tt)) then
+                    		P_NumOfNeededTrucks(tt) := P_TemNum;
+                    	endif;
+                    
+                    	P_NumOfNeededTrucks(tt) := P_NumOfNeededTrucks(tt) + P_AdjustParameter;
+                    
+                    	P_TemNum := 0;
+                    	for(rawtk | P_RawTruckTruckType(rawtk) = tt and P_TemNum < P_NumOfNeededTrucks(tt)
+                    		    and P_RawTruckOwnerId(rawtk) = P_SelectedDC and P_IsUsedTruck(rawtk) = 0
+                    	    	    and P_RawTMofTruckType(P_RawTruckTruckType(rawtk)) in S_TransportationMode) do
+                    		S_Truck := S_Truck + rawtk;
+                    		P_TemNum := P_TemNum + 1;		
+                    	endfor;
+                    endfor;
+                    ! Truck reduction for sub model
+                    
+                    
                     
                     S_SN := S_RawSN;
                     
@@ -3122,6 +3259,8 @@ Model Main_MilkRun {
                 endif;
                 
                 PassingRawDataToLocalDeliveryModel;
+                
+                P_PossibleOrderTruck(od, tk) := 1;
                 
                 empty DecisionVariables;
                 
@@ -4765,6 +4904,60 @@ Model Main_MilkRun {
                     endif;
                 }
             }
+        }
+    }
+    Section Test_LocationAnalysis {
+        Procedure LocationAnalysis {
+            Body: {
+                
+                empty p_distance_test,p_distance_test_NUM;
+                P_NUM1:=0;P_NUM3:=0;
+                
+                for(rawindex | P_IsVxOrderInModel(rawindex) OR P_IsRxOrderInModel(rawindex)) do
+                     s_customerswithorder:=s_customerswithorder+ P_RawRxCustomerInSalesOrder(rawindex);
+                
+                     s_customerswithorder:=s_customerswithorder+P_RawCustomerInSalesOrderVx(rawindex);
+                     P_NUM1:=P_NUM1+1;
+                
+                endfor;
+                
+                !P_RawDistance(cwo, cwo1) = 0 
+                for(cwo,cwo1 | P_RawLatitude(cwo) > 0 and P_RawLatitude(cwo1) > 0 and P_RawLongitude(cwo) > 0
+                		 and P_RawLongitude(cwo1) > 0 AND CWO<>CWO1 ) do
+                	CalculateDistance(P_RawLatitude(cwo), P_RawLatitude(cwo1), P_RawLongitude(cwo), P_RawLongitude(cwo1), 
+                	  p_distance_test(cwo,cwo1));
+                	IF(p_distance_test(cwo,cwo1)<=10 AND cwo<>cwo1) THEN
+                	   p_distance_test_NUM(cwo,cwo1) :=p_distance_test_NUM(cwo,cwo1)+1;
+                Copy_p_distance_test(cwo,cwo1):=p_distance_test(cwo,cwo1);
+                	   P_NUM3:=P_NUM3+1;
+                	ENDIF;  
+                endfor;
+                
+                
+                
+                !  p_distance_test(cwo,cwo1):=;
+                !endfor;
+                !!! Time consuming, will calculate at model level
+                !for (rawlc1, rawlc2 | P_RawDistance(rawlc1, rawlc2) = 0 and P_RawLatitude(rawlc1) > 0 and P_RawLatitude(rawlc2) > 0 and P_RawLongitude(rawlc1) > 0 and P_RawLongitude(rawlc2) > 0 ) do
+                !	CalculateDistance(P_RawLatitude(rawlc1), P_RawLatitude(rawlc2), P_RawLongitude(rawlc1), P_RawLongitude(rawlc2), P_RawDistance(rawlc1, rawlc2));
+                !endfor;
+            }
+        }
+        Parameter P_NUM3;
+        Parameter P_NUM1;
+        Parameter P_NUM2;
+        Set s_customerswithorder {
+            SubsetOf: S_RawCustomer;
+            Index: cwo, cwo1;
+        }
+        Parameter p_distance_test {
+            IndexDomain: (cwo,cwo1);
+        }
+        Parameter Copy_p_distance_test {
+            IndexDomain: (cwo,cwo1);
+        }
+        Parameter p_distance_test_NUM {
+            IndexDomain: (cwo,cwo1);
         }
     }
     Procedure MainInitialization {
